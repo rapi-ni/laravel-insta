@@ -1,0 +1,51 @@
+{{-- clickble image --}}
+<div class="container p-0">
+    <a href="{{ route('post.show', $post->id) }}">
+        <img src="{{ $post->image }}" alt="post_id {{ $post->id }}" class="w-100">
+    </a>
+</div>
+<div class="card-body">
+    {{-- heart button + no. of links --}}
+    <div class="row align-items-center">
+        <div class="col-auto">
+            @if ($post->isLiked())
+                <form action="{{ route('like.destroy', $post->id) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm shadow-none p-0">
+                        <i class="fa-solid fa-heart text-danger"></i>
+                    </button>
+                </form>
+            @else
+                <form action="{{ route('like.store', $post->id) }}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-sm shadow-none p-0">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </form>   
+            @endif
+        </div>
+        <div class="col-auto px-0">
+            <span>{{ $post->likes->count() }}</span>
+        </div>
+        <div class="col text-end">
+            @forelse ($post->categorypost as $category)
+                <div class="badge bg-secondary bg-opacity-50">
+                {{ $category->category->name}}</div>
+            @empty
+                <span class="badge bg-dark text-light small">Uncategorized</span>
+            @endforelse
+        </div>
+    </div>
+
+    {{-- owner + description --}}
+    <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none text-dark fw-bold">
+        {{ $post->user->name}}
+    </a>
+    &nbsp;
+    <p class="d-inline fs-light">{{ $post->description }}</p>
+    <p class="text-uppercase text-muted xsmall">{{ date('M d, Y', strtotime( $post->created_at )) }}</p>
+
+    {{-- include comments here --}}
+    @include('users.posts.contents.comments')
+</div>
