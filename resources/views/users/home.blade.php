@@ -22,7 +22,7 @@
         </div>
         <div class="col-4">
             {{-- PROFILE OVERVIEW + SUGGESTIONS --}}
-            <div class="row align-items-center mb-5 bg-white shadow-sm rouded-3 py-3">
+            <div class="row align-items-center mb-5 bg-white shadow-sm rounded-3 py-3">
                 <div class="col-auto">
                     <a href="{{ route('profile.show', Auth::user()->id) }}">
                         @if (Auth::user()->avatar)
@@ -45,12 +45,12 @@
                         <p class="fw-bold text-secondary">Suggestions For You</p>
                     </div>
                     <div class="col text-end">
-                        <a href="#" class="text-decoration-none text-dark fw-bold">See all</a>
+                        <a href="#" class="text-decoration-none text-dark fw-bold" data-bs-toggle="modal" data-bs-target="#suggestions-modal">See all</a>
                     </div>
                 </div>
 
-                @foreach ($suggested_users as $user)
-                    <div class="row alighn-items-center mb-3">
+                @foreach (array_slice($suggested_users, 0, 5) as $user)
+                    <div class="row align-items-center mb-3">
                         <div class="col-auto">
                             <a href="{{ route('profile.show', $user->id) }}">
                                 @if ($user->avatar)
@@ -66,7 +66,7 @@
                         <div class="col-auto">
                             <form action="{{ route('follow.store', $user->id) }}" method="post">
                                 @csrf
-                                <button type="submit" class="border-0 bg-transparent p-0 text-promary btn-sm">Follow</button>
+                                <button type="submit" class="border-0 bg-transparent p-0 text-primary btn-sm">Follow</button>
                             </form>
                         </div>
                     </div>
@@ -74,5 +74,9 @@
             @endif
         </div>
     </div>
+        {{-- modal --}}
+        @include('users.suggestions.modal', [
+            'suggestedUsers' => $suggested_users
+        ])
 @endsection
  
