@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 //yuki comment
 // miki edit here
+// manatsu edit here
 
 Auth::routes();
 
