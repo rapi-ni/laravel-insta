@@ -20,7 +20,9 @@ class LikeController extends Controller
         $this->like->post_id = $post_id;
         $this->like->save();
 
-        return redirect()->back();
+        return response()->json([
+            'message' => 'Likeを追加しました'
+        ]);
     }
 
     # delete date
@@ -30,7 +32,9 @@ class LikeController extends Controller
             ->where('post_id', $post_id)
             ->delete();
 
-        return redirect()->back();
+        return response()->json([
+            'message' => 'Likeを削除しました'
+        ]);
     }
     
 }
