@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Comment extends Model
 {
@@ -18,5 +19,17 @@ class Comment extends Model
     #To get replies
     public function replies(){
         return $this->hasMany(Comment::class, 'parent_id');
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'comment_id');
+    }
+
+    public function isLiked()
+    {
+        return $this->likes()
+            ->where('user_id', Auth::user()->id)
+            ->exists();
     }
 }
