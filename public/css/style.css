@@ -76,3 +76,26 @@
     border-bottom: 2px solid #212529;
     background-color: transparent;
 }
+
+/* followers / following modal */
+.follow-modal .modal-content {
+    border: 0;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.follow-modal .modal-header {
+    position: relative;
+    justify-content: center;
+}
+
+.follow-modal .modal-header .btn-close {
+    position: absolute;
+    right: 1rem;
+}
+
+.follow-modal .modal-body {
+    max-height: 400px;
+    overflow-y: auto;
+}
+

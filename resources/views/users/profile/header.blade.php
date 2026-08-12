@@ -39,12 +39,12 @@
                 </a>
             </div>
             <div class="col-auto">
-                <a href="{{ route('profile.followers', $user->id) }}" class="text-decoration-none text-dark">
+                <a href="#followers-modal" class="text-decoration-none text-dark" data-bs-toggle="modal">
                     <strong>{{ $user->followers->count() }}</strong> {{ $user->followers->count() == 1 ? 'follower' : 'followers'}}
                 </a>
             </div>
             <div class="col-auto">
-                <a href="{{ route('profile.following', $user->id) }}" class="text-decoration-none text-dark">
+                <a href="#following-modal" class="text-decoration-none text-dark" data-bs-toggle="modal">
                     <strong>{{ $user->following->count() }}</strong> {{ $user->followers->count() == 1 ? 'following' : 'followings'}}
                 </a>
             </div>
@@ -53,3 +53,6 @@
         <p class="fs-bold">{{ $user->introduction}}</p>
     </div>
 </div>
+
+@include('users.profile.modals.followers')
+@include('users.profile.modals.following')
