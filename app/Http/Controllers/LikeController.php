@@ -21,7 +21,7 @@ class LikeController extends Controller
         $this->like->save();
 
         return response()->json([
-            'message' => 'Likeを追加しました'
+            'message' => 'Add the like'
         ]);
     }
 
@@ -33,7 +33,7 @@ class LikeController extends Controller
             ->delete();
 
         return response()->json([
-            'message' => 'Likeを削除しました'
+            'message' => 'Remove the like'
         ]);
     }
     
