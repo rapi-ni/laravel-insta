@@ -17,8 +17,13 @@ class ProfileController extends Controller
     # show profile page
     public function show($id){
         $user = $this->user->findOrFail($id);
-        return view('users.profile.show')->with('user', $user);
+        $liked_posts = $user->likedPosts()->latest()->get();
+
+        return view('users.profile.show')
+                    ->with('user', $user)
+                    ->with('liked_posts', $liked_posts);
     }
+        
 
     # edit auth user's profile page
     public function edit(){
