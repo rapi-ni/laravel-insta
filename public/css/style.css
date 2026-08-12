@@ -99,3 +99,239 @@
     overflow-y: auto;
 }
 
+
+/* gyaru design */
+:root {
+    --gyaru-pink: #f43f8d;
+    --gyaru-pink-dark: #d92b74;
+    --gyaru-pink-light: #fff0f7;
+    --gyaru-lavender: #eee5ff;
+    --gyaru-text: #45233d;
+    --gyaru-muted: #926f88;
+    --gyaru-border: #f7c9dc;
+    --gyaru-shadow: 0 10px 30px rgba(217, 43, 116, 0.1);
+}
+
+body {
+    color: var(--gyaru-text);
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(244, 63, 141, 0.08),
+            transparent 32rem
+        ),
+        linear-gradient(135deg, #fffafd, #fff4f9);
+    min-height: 100vh;
+}
+
+.gyaru-navbar {
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid var(--gyaru-border);
+    box-shadow: 0 4px 18px rgba(217, 43, 116, 0.08);
+    backdrop-filter: blur(12px);
+}
+
+.navbar-brand h1 {
+    color: var(--gyaru-pink);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.gyaru-search {
+    padding: 0.65rem 1rem;
+    color: var(--gyaru-text);
+    background: var(--gyaru-pink-light);
+    border: 1px solid var(--gyaru-border);
+    border-radius: 999px;
+}
+
+.gyaru-search:focus {
+    background: #fff;
+    border-color: var(--gyaru-pink);
+    box-shadow: 0 0 0 0.2rem rgba(244, 63, 141, 0.15);
+}
+
+.gyaru-nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-inline: 0.2rem;
+    color: var(--gyaru-pink);
+    background: var(--gyaru-pink-light);
+    border-radius: 50%;
+    transition: 0.2s ease;
+}
+
+.gyaru-nav-icon:hover {
+    color: #fff;
+    background: var(--gyaru-pink);
+    transform: translateY(-2px);
+}
+
+.post-card {
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid var(--gyaru-border);
+    border-radius: 1.25rem;
+    box-shadow: var(--gyaru-shadow);
+}
+
+.post-card .card-header,
+.post-card .card-footer {
+    background: transparent;
+    border-color: rgba(244, 63, 141, 0.12);
+}
+
+.post-card img {
+    transition: filter 0.25s ease;
+}
+
+.post-card:hover {
+    box-shadow: 0 14px 38px rgba(217, 43, 116, 0.15);
+}
+
+.post-card .fa-heart {
+    color: var(--gyaru-pink);
+}
+
+.profile-summary {
+    padding: 1.25rem;
+    background: linear-gradient(135deg, #fff, var(--gyaru-pink-light));
+    border: 1px solid var(--gyaru-border);
+    border-radius: 1.25rem;
+    box-shadow: var(--gyaru-shadow);
+}
+
+.profile-summary .avatar-md {
+    padding: 3px;
+    background: linear-gradient(
+        135deg,
+        var(--gyaru-pink),
+        #c084fc
+    );
+    border: 2px solid #fff;
+}
+
+.suggestions-card {
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid var(--gyaru-border);
+    border-radius: 1.25rem;
+    box-shadow: var(--gyaru-shadow);
+}
+
+.suggestions-card .avatar-sm {
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        var(--gyaru-pink),
+        #c084fc
+    );
+    border: 1px solid #fff;
+}
+
+.suggestions-card a {
+    color: var(--gyaru-text);
+}
+
+.suggestions-card a:hover {
+    color: var(--gyaru-pink);
+}
+
+.follow-btn {
+    min-width: 5rem;
+    color: #fff;
+    font-weight: 700;
+    background: linear-gradient(
+        135deg,
+        var(--gyaru-pink),
+        var(--gyaru-pink-dark)
+    );
+    border: 0;
+    border-radius: 999px;
+    box-shadow: 0 5px 12px rgba(217, 43, 116, 0.2);
+    transition: 0.2s ease;
+}
+
+.follow-btn:hover {
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 16px rgba(217, 43, 116, 0.28);
+}
+
+/* suggestions modal */
+.suggestions-modal .modal-content {
+    overflow: hidden;
+    color: var(--gyaru-text);
+    background: #fffafd;
+    border: 1px solid var(--gyaru-border);
+    border-radius: 1.25rem;
+    box-shadow: 0 20px 60px rgba(217, 43, 116, 0.2);
+}
+
+.suggestions-modal .modal-header {
+    position: relative;
+    justify-content: center;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, #fff, var(--gyaru-pink-light));
+    border-bottom: 1px solid var(--gyaru-border);
+}
+
+.suggestions-modal .modal-title {
+    color: var(--gyaru-text);
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.suggestions-modal .btn-close {
+    position: absolute;
+    right: 1.25rem;
+    box-shadow: none;
+}
+
+.suggestions-modal .btn-close:focus {
+    box-shadow: 0 0 0 0.2rem rgba(244, 63, 141, 0.15);
+}
+
+.suggestions-modal .modal-body {
+    max-height: 420px;
+    padding: 0.75rem 1.25rem;
+    overflow-y: auto;
+}
+
+.suggestions-modal .suggestion-user {
+    padding: 0.85rem 0.25rem;
+    border-bottom: 1px solid rgba(244, 63, 141, 0.1);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.suggestions-modal .suggestion-user:last-child {
+    border-bottom: 0;
+}
+
+.suggestions-modal .suggestion-user:hover {
+    background: var(--gyaru-pink-light);
+    border-radius: 0.8rem;
+    transform: translateX(2px);
+}
+
+.suggestions-modal .avatar-sm {
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--gyaru-pink), #c084fc);
+    border: 2px solid #fff;
+    box-shadow: 0 3px 10px rgba(217, 43, 116, 0.15);
+}
+
+.suggestions-modal .suggestion-user-name {
+    color: var(--gyaru-text);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.suggestions-modal .suggestion-user-name:hover {
+    color: var(--gyaru-pink);
+}
