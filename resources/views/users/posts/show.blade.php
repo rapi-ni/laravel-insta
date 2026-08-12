@@ -14,9 +14,52 @@
         }
     </style>
     <div class="row border shadow">
-        <div class="col p-0 border-end">
-            <img src="{{ $post->image }}" alt="post id {{ $post->id }}" class="w-100">
-        </div>
+        <div class="col p-0 border-end d-flex align-items-center justify-content-center" style="min-height: 400px;background-color: #fff;">
+            @if($post->images->isNotEmpty())
+                {{-- count for image --}}
+                @if($post->images->count() > 1)
+                    <div class="carousel-indicators-text position-absolute top-0 end-0 m-3 px-2 py-1 bg-dark bg-opacity-75 text-white rounded-pill fw-bold" 
+                         style="z-index: 10; font-size: 11px; letter-spacing: 0.5px; pointer-events: none;">
+                        
+                        @foreach($post->images as $index => $post_image)
+                            <span class="carousel-indicator-item {{ $index === 0 ? 'd-inline' : 'd-none' }}" 
+                                  data-bs-target="#carouselPost-{{ $post->id }}" 
+                                  data-bs-slide-to="{{ $index }}">
+                                {{ $index + 1 }} / {{ $post->images->count() }}
+                            </span>
+                        @endforeach
+                    </div>
+                @endif
+                
+            <div id="carouselPost-{{ $post->id }}" class="carousel slide w-100 position-relative" data-bs-ride="false">
+                
+                <div class="carousel-inner">
+                    @foreach($post->images as $index => $post_image)
+                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                            <img src="{{ $post_image->image }}" alt="post image" class="w-100 d-block" style="object-fit: contain; max-height: 600px;">
+                        </div>
+                    @endforeach
+                </div>
+
+                {{-- button for slide --}}
+                @if($post->images->count() > 1)
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselPost-{{ $post->id }}" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselPost-{{ $post->id }}" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                @endif
+            </div>
+
+        {{-- if post has only one image... --}}
+        @else
+            <img src="{{ $post->image }}" alt="post id {{ $post->id }}" class="w-100" style="object-fit: contain; max-height: 600px;">
+        @endif
+
+    </div>
         <div class="col-4 px-0 bg-white">
             <div class="card border-0">
                 <div class="card-header bg-white py-3">
