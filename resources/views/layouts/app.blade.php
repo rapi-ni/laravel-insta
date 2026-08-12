@@ -16,15 +16,16 @@
     <!-- fontawesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
     {{-- CSS LINK --}}
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md gyaru-navbar">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <h1 class="h5">{{ config('app.name') }}</h1>
@@ -41,7 +42,7 @@
                         @if (!request()->is('admin/*'))
                             <ul class="navbar-nav ms-auto">
                                 <form action="{{ route('search') }}" style="width: 300px">
-                                    <input type="search" name="search" id="search" class="form-control form-control-sm" placeholder="Search...">
+                                    <input type="search" name="search" id="search" class="form-control form-control-sm gyaru-search" placeholder="Search...">
                                 </form>
                             </ul>
                         @endif
@@ -67,13 +68,13 @@
 
                             {{-- Home --}}
                             <li class="nav-item" title="Home">
-                                <a href="{{ route('index') }}" class="nav-link">
+                                <a href="{{ route('index') }}" class="nav-link gyaru-nav-icon">
                                     <i class="fa-solid fa-house text-dark icon-sm"></i>
                                 </a>
                             </li>
                             
                             {{-- Create Post --}}
-                            <li class="nav-item" title="Create Post">
+                            <li class="nav-item gyaru-nav-icon" title="Create Post">
                                 <a href="{{ route('post.create') }}" class="nav-link">
                                     <i class="fa-solid fa-circle-plus text-dark icon-sm"></i>
                                 </a>
