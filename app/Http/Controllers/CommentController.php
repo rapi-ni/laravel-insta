@@ -30,6 +30,10 @@ class CommentController extends Controller
         //input() - retrieves the value of an input field from the form request
         $this->comment->user_id = Auth::user()->id;
         $this->comment->post_id = $post_id;
+
+        // For replies, parent_id is included.
+        $this->comment->parent_id = $request->input('parent_id');
+
         $this->comment->save();
 
         return redirect()->route('post.show', $post_id);

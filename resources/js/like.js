@@ -22,23 +22,19 @@ document.addEventListener('DOMContentLoaded', function () {
             let url;
             let method;
 
-            // ==========================
-            // Likeを外す
-            // ==========================
+            // Remove the like
             if (heart.dataset.liked === 'true') {
 
-                console.log('Likeを外します！');
+                console.log('Remove the like');
                 console.log('post id:', postId);
 
                 url = destroyUrl;
                 method = 'DELETE';
 
-            // ==========================
-            // Likeを付ける
-            // ==========================
+            // Give it a like
             } else {
 
-                console.log('Likeを付けます！');
+                console.log('Give it a like');
                 console.log('post id:', postId);
 
                 url = storeUrl;
@@ -70,25 +66,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (method === 'DELETE') {
 
-                    // ハートを通常状態に戻す
+                    // Put it back
                     heart.classList.remove('fa-solid');
                     heart.classList.add('fa-regular');
                     heart.classList.remove('text-danger');
                     heart.dataset.liked = 'false';
 
-                    // Like数を -1
+                    // Decrease the like count by 1
                     likeCount.textContent =
                         Number(likeCount.textContent) - 1;
 
                 } else {
 
-                    // ハートを赤にする
+                    // Turn the heart red
                     heart.classList.remove('fa-regular');
                     heart.classList.add('fa-solid');
                     heart.classList.add('text-danger');
                     heart.dataset.liked = 'true';
 
-                    // Like数を +1
+                    // Increase the like count by 1
                     likeCount.textContent =
                         Number(likeCount.textContent) + 1;
                 }
