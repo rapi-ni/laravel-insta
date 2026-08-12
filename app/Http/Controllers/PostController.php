@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\PostImage;
 
 class PostController extends Controller
 {
@@ -31,13 +32,16 @@ class PostController extends Controller
         $request ->validate([
             'category'      => 'required|array|between:1,3',
             'description'   => 'required|min:1|max:1000',
-            'image'         => 'required|mimes:jpeg,jpg,png,gif|max:1048'
+            'images'   => 'required|array|max:5',
+            'images.*' => 'image|mimes:jpeg,jpg,png,gif|max:1048'
         ]);
 
         #2. Save the post
         $this->post->user_id        = Auth::user()->id;
-        $this->post->image          = 'data:image/' . $request->image->extension() .
-                                      ';base64,' . base64_encode(file_get_contents($request->image));
+        if ($request->hasFile('images')) {
+            $first_image = $request->file('images')[0];
+            $this->post->image = 'data:image/' . $first_image->extension() . ';base64,' . base64_encode(file_get_contents($first_image));
+        }
         $this->post->description    = $request->description;
         $this->post->save();
 
@@ -47,13 +51,25 @@ class PostController extends Controller
         }
         $this->post->categorypost()->createMany($category_post);
 
-        #4. Go back to homepage
+        #4. Save images (if user put more than 2 images)
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                $base64_image = 'data:image/' . $file->extension() . ';base64,' . base64_encode(file_get_contents($file));
+
+                $post_image = new PostImage;
+                $post_image->post_id = $this->post->id;
+                $post_image->image   = $base64_image;
+                $post_image->save();
+            }
+        }
+        
+        #5. Go back to homepage
         return redirect()->route('index');
     }
 
     #show post page
     public function show($id){
-        $post = $this->post->findOrFail($id);
+        $post = $this->post->with('images')->findOrFail($id);
         return view('users.posts.show')->with('post', $post);
     }
 
