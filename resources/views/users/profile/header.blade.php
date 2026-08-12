@@ -13,7 +13,7 @@
                     {{ $user->name }}
                 </h2>
             </div>
-            <div class="col-auto p-2">
+            <div class="col-auto p-2 d-flex gap-2">
                 @if (Auth::user()->id === $user->id)
                     <a href="{{ route('profile.edit')}}" class="btn btn-outline-secondary btn-sm fw-bold">Edit Profile</a>
                 @else
@@ -29,6 +29,13 @@
                             <button type="submit" class="btn btn-primary btn-sm fw-bold">Follow</button>
                         </form>
                     @endif
+
+                    <form action="{{ route('messages.start', $user) }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-secondary btn-sm fw-bold">
+                            <i class="fa-regular fa-paper-plane me-1"></i>Message
+                        </button>
+                    </form>
                 @endif
             </div>
         </div>

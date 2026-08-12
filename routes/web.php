@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 //yuki comment
@@ -82,6 +83,15 @@ Route::group(['middleware' => 'auth'], function(){
     Route::group([ 'prefix' => 'following', 'as' => 'following.'], function(){
         Route::post('/{user_id}/store', [FollowController::class, 'store'])->name('store');
         Route::delete('/{user_id}/destroy', [FollowController::class, 'destroy'])->name('destroy');
+    });
+
+    #MESSAGES
+    Route::group(['prefix' => 'messages', 'as' => 'messages.'], function(){
+        Route::get('/', [MessageController::class, 'index'])->name('index');
+        Route::post('/start/{user}', [MessageController::class, 'start'])->name('start');
+        Route::get('/{conversation}', [MessageController::class, 'show'])->name('show');
+        Route::post('/{conversation}', [MessageController::class, 'store'])->name('store');
+        Route::delete('/message/{message}', [MessageController::class, 'destroy'])->name('destroy');
     });
 
 
