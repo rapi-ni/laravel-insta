@@ -79,26 +79,32 @@
                     {{-- heart button + no. of links --}}
                     <div class="row align-items-center">
                         <div class="col-auto">
-                            @if ($post->isLiked())
-                                <form action="{{ route('like.destroy', $post->id) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm shadow-none p-0">
-                                        <i class="fa-solid fa-heart text-danger"></i>
-                                    </button>
-                                </form>
-                            @else
-                                <form action="{{ route('like.store', $post->id) }}" method="post">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm shadow-none p-0">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </button>
-                                </form>   
-                            @endif
-                        </div>
+                        
+                            <form
+                                class="like-form"
+                                data-post-id="{{ $post->id }}"
+                                method="post"
+                                data-like-store-url="{{ route('like.store', $post->id) }}"
+                                data-like-destroy-url="{{ route('like.destroy', $post->id) }}">
+
+                                @csrf
+
+                                <button type="submit" class="btn btn-sm shadow-none p-0">
+                                    @if ($post->isLiked())
+                                    <i class="fa-solid fa-heart text-danger" data-liked="true"></i> 
+                                    @else
+                                     <i class="fa-regular fa-heart" data-liked="false"></i>
+                                    @endif
+                                </button>
+                            </form>
+                        </div>                
+        
                         <div class="col-auto px-0">
-                            <span>3</span>
+                            <span id="like-count-{{ $post->id }}">
+                                {{ $post->likes->count() }}
+                            </span>
                         </div>
+
                         <div class="col text-end">
                             @foreach ($post->categoryPost as $category_post)
                                 <div class="badge bg-secondary bg-opacity-50">
