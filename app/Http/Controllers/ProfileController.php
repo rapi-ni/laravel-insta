@@ -18,10 +18,16 @@ class ProfileController extends Controller
     public function show($id){
         $user = $this->user->findOrFail($id);
         $liked_posts = $user->likedPosts()->latest()->get();
+        $commented_posts = $user->commentedPosts()
+                            ->with(['comments' => function($query) {
+                                    $query->where('user_id', Auth::user()->id);
+                                }])
+                            ->latest()->get()->unique('id');
 
         return view('users.profile.show')
                     ->with('user', $user)
-                    ->with('liked_posts', $liked_posts);
+                    ->with('liked_posts', $liked_posts)
+                    ->with('commented_posts', $commented_posts);
     }
         
 

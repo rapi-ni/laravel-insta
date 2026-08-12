@@ -56,3 +56,23 @@
     height: 9rem;
     object-fit: cover;
 }
+
+/* profile tab button */
+.nav.nav-tabs.profile-nav-tabs .nav-link {
+    border: none;
+    color: #6c757d;
+    border-bottom: 2px solid transparent;
+    font-weight: bold;
+    background-color: transparent;
+}
+
+.nav.nav-tabs.profile-nav-tabs .nav-link:hover {
+    border-color: transparent;
+    color: #212529;
+}
+
+.nav.nav-tabs.profile-nav-tabs .nav-link.active {
+    color: #212529;
+    border-bottom: 2px solid #212529;
+    background-color: transparent;
+}

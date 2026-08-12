@@ -71,9 +71,15 @@ class User extends Authenticatable
         return $this->followers()->where('follower_id', Auth::user()->id)->exists();
     }
 
-    # To get the liked posts of a user
+    # To get the liked posts
     public function likedposts(){
         return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')->latest();
     }
+
+    # To get the commented post 
+    public function commentedPosts(){
+        return $this->belongsToMany(Post::class, 'comments', 'user_id', 'post_id')
+                    ->withTimestamps();
+}
 
 }
