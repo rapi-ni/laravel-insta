@@ -69,8 +69,16 @@ Route::group(['middleware' => 'auth'], function(){
 
     #LIKE
     Route::group([ 'prefix' => 'like', 'as' => 'like.'], function(){
-        Route::post('/{post_id}/store', [LikeController::class, 'store'])->name('store');
-        Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])->name('destroy');
+        // Post Like
+        Route::post('/{post_id}/store', [LikeController::class, 'store'])
+            ->name('store');
+        Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])
+            ->name('destroy');
+        //  Comment / Reply Like
+        Route::post('/comment/{comment_id}/like', [LikeController::class, 'commentStore'])
+            ->name('comment.store');
+        Route::delete('/comment/{comment_id}/like', [LikeController::class, 'commentDestroy'])
+            ->name('comment.destroy');
     });
 
     #FOLLOW
@@ -93,9 +101,5 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/{conversation}', [MessageController::class, 'store'])->name('store');
         Route::delete('/message/{message}', [MessageController::class, 'destroy'])->name('destroy');
     });
-
-
-
     
-
-});
+ });
