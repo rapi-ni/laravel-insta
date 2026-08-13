@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->decimal('rating_taste', 2, 1)->nullable()->after('description');
-            $table->decimal('rating_volume', 2, 1)->nullable()->after('rating_taste');
-            $table->decimal('rating_sulit', 2, 1)->nullable()->after('rating_volume');
-            $table->decimal('rating_vibes', 2, 1)->nullable()->after('rating_sulit');
-            
-            $table->foreignId('location_id')->nullable()->after('rating_vibes')->constrained()->onDelete('cascade');
-        });
+        $table->decimal('rating_volume', 2, 1)->nullable()->after('rating_taste');
+        $table->decimal('rating_sulit', 2, 1)->nullable()->after('rating_volume');
+        $table->decimal('rating_vibes', 2, 1)->nullable()->after('rating_sulit');
+        
+        $table->foreignId('location_id')->nullable()->after('rating_vibes')->constrained()->onDelete('cascade');
+    });
     }
 
     /**

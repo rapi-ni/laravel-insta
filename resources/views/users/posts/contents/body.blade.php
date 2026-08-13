@@ -1,9 +1,42 @@
-{{-- clickble image --}}
+{{-- clickable image with multi-image slideshow --}}
 <div class="container p-0">
-    <a href="{{ route('post.show', $post->id) }}">
-        <img src="{{ $post->image }}" alt="post_id {{ $post->id }}" class="w-100">
-    </a>
+    @if($post->images->isNotEmpty())
+        <div id="carouselTimeline-{{ $post->id }}" class="carousel slide w-100" data-bs-ride="false">
+            
+            <div class="carousel-inner">
+                @foreach($post->images as $index => $post_image)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                        <a href="{{ route('post.show', $post->id) }}">
+                            <div class="ratio ratio-1x1">
+                                <img src="{{ $post_image->image }}" alt="post image" class="w-100 h-100 d-block" style="object-fit: cover;">
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+
+            @if($post->images->count() > 1)
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselTimeline-{{ $post->id }}" data-bs-slide="prev" style="z-index: 5;">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselTimeline-{{ $post->id }}" data-bs-slide="next" style="z-index: 5;">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            @endif
+        </div>
+
+    {{-- if post has only one image... --}}
+    @else
+        <a href="{{ route('post.show', $post->id) }}">
+            <div class="ratio ratio-1x1">
+                <img src="{{ $post->image }}" alt="post id {{ $post->id }}" class="w-100 h-100" style="object-fit: cover;">
+            </div>
+        </a>
+    @endif
 </div>
+
 <div class="card-body">
     {{-- heart button + no. of links --}}
     <div class="row align-items-center">
