@@ -48,6 +48,10 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'spicy_level' => 'integer',
+            'sweet_level' => 'integer',
+            'meat_level' => 'integer',
+            'vegetable_level' => 'integer',
         ];
     }
 
