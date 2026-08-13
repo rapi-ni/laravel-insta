@@ -76,7 +76,7 @@
                         </form>
                     </div>
 
-                    {{-- Replies --}}
+                    Replies
                     @if ($comment->replies->count() > 0)
                         <div class="ms-4 mt-2">
 

@@ -18,16 +18,8 @@
             @if($post->images->isNotEmpty())
                 {{-- count for image --}}
                 @if($post->images->count() > 1)
-                    <div class="carousel-indicators-text position-absolute top-0 end-0 m-3 px-2 py-1 bg-dark bg-opacity-75 text-white rounded-pill fw-bold" 
-                         style="z-index: 10; font-size: 11px; letter-spacing: 0.5px; pointer-events: none;">
-                        
-                        @foreach($post->images as $index => $post_image)
-                            <span class="carousel-indicator-item {{ $index === 0 ? 'd-inline' : 'd-none' }}" 
-                                  data-bs-target="#carouselPost-{{ $post->id }}" 
-                                  data-bs-slide-to="{{ $index }}">
-                                {{ $index + 1 }} / {{ $post->images->count() }}
-                            </span>
-                        @endforeach
+                    <div class="position-absolute top-0 end-0 m-3 px-2 py-1 bg-dark text-white rounded-pill fs-7 opacity-75 custom-carousel-indicator" style="z-index: 10;" id="indicator-{{ $post->id }}">
+                        1 / {{ $post->images->count() }}
                     </div>
                 @endif
                 
