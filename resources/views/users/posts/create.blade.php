@@ -35,14 +35,18 @@
         </div>
 
         <div class="mb-4">
-            <label for="image" class="form-label fw-bold">Image</label>
-            <input type="file" name="image" id="image" class="form-control" aria-describedby="image-info">
-            <div class="form-text" id="image-info">
+            <label for="images" class="form-label fw-bold">Images</label>
+            <input type="file" name="images[]" id="images" class="form-control" aria-describedby="image-info" multiple>
+            <div class="form-text" id="images-info">
                 The acceptable formats are jpeg, jpg, png, and gif only.<br>
-                Max file size is 1048kb.
+                Max file size is 1048kb.<span class="text-muted fw-normal">(up to 5)</span>
             </div>
             {{-- Error --}}
-            @error('image')
+            @error('images')
+                <div class="text-danger small">{{ $message }}</div>
+            @enderror
+
+            @error('images.*')
                 <div class="text-danger small">{{ $message }}</div>
             @enderror
         </div>

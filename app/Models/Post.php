@@ -35,8 +35,10 @@ class Post extends Model
     # Returns TRUE if the AUTH USER alredy liked the post
     public function isLiked(){
         return $this->likes()->where('user_id', Auth::user()->id)->exists();
-        //retrieve all likes of a post buy calling $this->likes()
-        //use WHERE clause for FILTER OUT the date
-        //check user_id colomn if AUTH's ID exists
+    }
+
+    # To get all images
+    public function images(){
+        return $this->hasMany(PostImage::class);
     }
 }

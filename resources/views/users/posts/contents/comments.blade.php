@@ -78,7 +78,6 @@
 
                     {{-- Replies --}}
                     @if ($comment->replies->count() > 0)
-
                         <div class="ms-4 mt-2">
 
                             {{-- Latest reply --}}
@@ -265,6 +264,7 @@
                 rows="1" 
                 class="form-control form-control-sm" 
                 placeholder="Add a comment...">{{ old("comment_body{$post->id}") }}</textarea>
+
             <button type="submit" class="btn btn-outline-secondary btn-sm" title="Post">
                 <i class="fa-regular fa-paper-plane"></i>
             </button>
