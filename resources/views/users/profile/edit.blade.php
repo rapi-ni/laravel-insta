@@ -56,7 +56,60 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-warning px-5">Save</button>
+            <section class="taste-edit-card mb-4">
+                <div class="mb-4">
+                    <h3 class="h5 fw-bold mb-1">Taste Profile</h3>
+                    <p class="text-muted small mb-0">Choose how much you like each type of food.</p>
+                </div>
+
+                @php
+                    $tasteFields = [
+                        'spicy_level' => ['label' => 'Spicy', 'emoji' => '🌶️'],
+                        'sweet_level' => ['label' => 'Sweet', 'emoji' => '🧁'],
+                        'meat_level' => ['label' => 'Meat', 'emoji' => '🍖'],
+                        'vegetable_level' => ['label' => 'Vegetables', 'emoji' => '🥦'],
+                    ];
+                @endphp
+
+                @foreach ($tasteFields as $field => $taste)
+                    <fieldset class="taste-edit-row">
+                        <legend class="taste-edit-label">{{ $taste['label'] }}</legend>
+
+                        <div class="taste-edit-options">
+                            @for ($level = 1; $level <= 5; $level++)
+                                <input type="radio" class="btn-check" name="{{ $field }}"
+                                    id="{{ $field }}-{{ $level }}" value="{{ $level }}"
+                                    @checked((int) old($field, $user->$field) === $level)>
+
+                                <label class="taste-edit-option" for="{{ $field }}-{{ $level }}"
+                                    title="{{ $level }} out of 5">
+                                    <span>{{ $taste['emoji'] }}</span>
+                                    <small>{{ $level }}</small>
+                                </label>
+                            @endfor
+                        </div>
+
+                        @error($field)
+                            <div class="text-danger small mt-2">{{ $message }}</div>
+                        @enderror
+                    </fieldset>
+                @endforeach
+
+                <div class="mt-4">
+                    <label for="favorite_foods" class="form-label fw-bold">Favorite Foods</label>
+                    <input type="text" name="favorite_foods" id="favorite_foods"
+                        class="form-control taste-food-input @error('favorite_foods') is-invalid @enderror"
+                        value="{{ old('favorite_foods', $user->favorite_foods) }}"
+                        placeholder="Ramen, Yakiniku, Strawberry Cake">
+                    <div class="form-text">Separate multiple foods with commas.</div>
+
+                    @error('favorite_foods')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
+                </div>
+            </section>
+
+            <button type="submit" class="btn auth-submit px-5">Save Profile</button>
 
         </form>
         </div>

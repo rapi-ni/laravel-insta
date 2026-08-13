@@ -44,13 +44,23 @@ class ProfileController extends Controller
             'name'          => 'required|min:1|max:50',
             'email'         => 'required|email|max:255|unique:users,email,' . Auth::user()->id,
             'introduction'  => 'nullable|max:100',
-            'avatar'        => 'nullable|mimes:jpeg,jpg,png,gif|max:1048'
+            'avatar'        => 'nullable|mimes:jpeg,jpg,png,gif|max:1048',
+            'spicy_level'   => 'nullable|integer|between:1,5',
+            'sweet_level'   => 'nullable|integer|between:1,5',
+            'meat_level'    => 'nullable|integer|between:1,5',
+            'vegetable_level' => 'nullable|integer|between:1,5',
+            'favorite_foods' => 'nullable|string|max:255',
         ]);
 
         $user               = $this->user->findOrFail(Auth::user()->id);
         $user->name         = $request->name;
         $user->email        = $request->email;
         $user->introduction = $request->introduction;
+        $user->spicy_level = $request->spicy_level;
+        $user->sweet_level = $request->sweet_level;
+        $user->meat_level = $request->meat_level;
+        $user->vegetable_level = $request->vegetable_level;
+        $user->favorite_foods = $request->favorite_foods;
 
         # if the user update an avatar
         if ($request->avatar) {

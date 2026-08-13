@@ -5,8 +5,10 @@
 @section('content')
     @include('users.profile.header')
 
+    @include('users.profile.taste-profile')
+
     {{-- Tab button --}}
-    <div style="margin-top: 50px">
+    <div class="profile-content-tabs">
         <ul class="nav nav-tabs nav-justified justify-content-center mb-4 border-0 profile-nav-tabs w-75 mx-auto" id="profileTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts-content" type="button" role="tab">
