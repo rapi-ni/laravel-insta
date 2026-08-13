@@ -52,34 +52,55 @@ class User extends Authenticatable
     }
 
     # To get the posts of a user
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Post::class)->latest();
     }
 
     # To get the follower of a user
-    public function followers(){
+    public function followers()
+    {
         return $this->hasMany(Follow::class, 'following_id');
     }
 
     # To get all the  user that the user is following
-    public function following(){
+    public function following()
+    {
         return $this->hasMany(Follow::class, 'follower_id');
     }
 
     # Returns TRUE if AUTH USER already followed the user
-    public function isFollowed(){
+    public function isFollowed()
+    {
         return $this->followers()->where('follower_id', Auth::user()->id)->exists();
     }
 
     # To get the liked posts
-    public function likedposts(){
+    public function likedposts()
+    {
         return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')->latest();
     }
 
     # To get the commented post 
-    public function commentedPosts(){
+    public function commentedPosts()
+    {
         return $this->belongsToMany(Post::class, 'comments', 'user_id', 'post_id')
-                    ->withTimestamps();
-}
+            ->withTimestamps();
+    }
+
+    public function conversationsAsUserOne()
+    {
+        return $this->hasMany(Conversation::class, 'user_one_id');
+    }
+
+    public function conversationsAsUserTwo()
+    {
+        return $this->hasMany(Conversation::class, 'user_two_id');
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
 
 }

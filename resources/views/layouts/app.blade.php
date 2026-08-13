@@ -50,7 +50,7 @@
 
                     <!-- Right Side Of Navbar -->
                     
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-center gap-2 gyaru-nav-actions">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -69,24 +69,24 @@
                             {{-- Home --}}
                             <li class="nav-item" title="Home">
                                 <a href="{{ route('index') }}" class="nav-link gyaru-nav-icon">
-                                    <i class="fa-solid fa-house text-dark icon-sm"></i>
+                                    <i class="fa-solid fa-house"></i>
                                 </a>
                             </li>
                             
                             {{-- Create Post --}}
-                            <li class="nav-item gyaru-nav-icon" title="Create Post">
-                                <a href="{{ route('post.create') }}" class="nav-link">
-                                    <i class="fa-solid fa-circle-plus text-dark icon-sm"></i>
+                            <li class="nav-item" title="Create Post">
+                                <a href="{{ route('post.create') }}" class="nav-link gyaru-nav-icon">
+                                    <i class="fa-solid fa-plus"></i>
                                 </a>
                             </li>
 
                             {{-- Account --}}
                             <li class="nav-item dropdown">
-                                <button id="account-dropdown" class="btn shadow-none nav-link" data-bs-toggle="dropdown">
+                                <button id="account-dropdown" class="btn nav-link gyaru-account-button" data-bs-toggle="dropdown">
                                     @if (Auth::user()->avatar)
-                                        <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" class="rounded-circle avatar-sm">
+                                        <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" class="rounded-circle gyaru-nav-avatar">
                                     @else
-                                        <i class="fa-solid fa-circle-user text-dark icon-sm"></i>
+                                        <i class="fa-solid fa-circle-user"></i>
                                     @endif
                                 </button>
                                 

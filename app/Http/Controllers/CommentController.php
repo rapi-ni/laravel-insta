@@ -36,7 +36,7 @@ class CommentController extends Controller
 
         $this->comment->save();
 
-        return redirect()->route('post.show', $post_id);
+        return redirect()->back();
     }
 
     #delete comment from datebase

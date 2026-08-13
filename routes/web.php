@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 //yuki comment
@@ -68,8 +69,16 @@ Route::group(['middleware' => 'auth'], function(){
 
     #LIKE
     Route::group([ 'prefix' => 'like', 'as' => 'like.'], function(){
-        Route::post('/{post_id}/store', [LikeController::class, 'store'])->name('store');
-        Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])->name('destroy');
+        // Post Like
+        Route::post('/{post_id}/store', [LikeController::class, 'store'])
+            ->name('store');
+        Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])
+            ->name('destroy');
+        //  Comment / Reply Like
+        Route::post('/comment/{comment_id}/like', [LikeController::class, 'commentStore'])
+            ->name('comment.store');
+        Route::delete('/comment/{comment_id}/like', [LikeController::class, 'commentDestroy'])
+            ->name('comment.destroy');
     });
 
     #FOLLOW
@@ -84,8 +93,13 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('/{user_id}/destroy', [FollowController::class, 'destroy'])->name('destroy');
     });
 
-
-
+    #MESSAGES
+    Route::group(['prefix' => 'messages', 'as' => 'messages.'], function(){
+        Route::get('/', [MessageController::class, 'index'])->name('index');
+        Route::post('/start/{user}', [MessageController::class, 'start'])->name('start');
+        Route::get('/{conversation}', [MessageController::class, 'show'])->name('show');
+        Route::post('/{conversation}', [MessageController::class, 'store'])->name('store');
+        Route::delete('/message/{message}', [MessageController::class, 'destroy'])->name('destroy');
+    });
     
-
-});
+ });
