@@ -578,5 +578,3 @@ body {
     color: #fff;
     transform: translateY(-1px);
 }
-
-.carousel-indicators-text .carousel-indicator-item:not(.active) { display: none !important; }

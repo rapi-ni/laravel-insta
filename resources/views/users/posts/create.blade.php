@@ -25,9 +25,7 @@
 
         <div class="mb-3">
             <label for="description" class="form-label fw-bold">Description</label>
-            <textarea name="description" id="description" rows="3" class="form-control" placeholder="What's on your mind">
-                {{ old('description')}}
-            </textarea>
+            <textarea name="description" id="description" rows="3" class="form-control" placeholder="What's on your mind">{{ old('description')}}</textarea>
             {{-- Error --}}
             @error('description')
                 <div class="text-danger small">{{ $message }}</div>
