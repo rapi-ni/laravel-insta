@@ -14,14 +14,16 @@
         }
     </style>
     <div class="row border shadow">
-        <div class="col p-0 border-end d-flex align-items-center justify-content-center" style="min-height: 400px;background-color: #fff;">
+        <div class="col p-0 border-end d-flex align-items-center justify-content-center" style="background-color: #fff;">
             @if($post->images->isNotEmpty())
             <div id="carouselPost-{{ $post->id }}" class="carousel slide w-100 position-relative" data-bs-ride="false">
                 
                 <div class="carousel-inner">
                     @foreach($post->images as $index => $post_image)
                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                            <img src="{{ $post_image->image }}" alt="post image" class="w-100 d-block" style="object-fit: contain; max-height: 600px;">
+                            <div class="ratio ratio-1x1">
+                                <img src="{{ $post_image->image }}" alt="post image" class="w-100 h-100 d-block" style="object-fit: cover;">
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -41,9 +43,12 @@
 
             {{-- if post has only one image... --}}
             @else
-                <img src="{{ $post->image }}" alt="post id {{ $post->id }}" class="w-100" style="object-fit: contain; max-height: 600px;">
+                <div class="ratio ratio-1x1">
+                    <img src="{{ $post->image }}" alt="post id {{ $post->id }}" class="w-100 h-100" style="object-fit: cover;">
+                </div>
             @endif
         </div>
+
 
         <div class="col-4 px-0 bg-white">
             <div class="card border-0">
@@ -189,10 +194,10 @@
                                 </div>
                             @endif
 
-                            {{-- Sulit --}}
+                            {{-- Value --}}
                             @if($post->rating_sulit)
                                 <div class="row g-0 align-items-center mb-1">
-                                    <div class="col-4 text-dark fw-bold" style="font-size: 11px;">↳ Sulit</div>
+                                    <div class="col-4 text-dark fw-bold" style="font-size: 11px;">↳ Value</div>
                                     <div class="col-8 text-warning d-flex align-items-center gap-1">
                                         @for ($i = 1; $i <= floor($post->rating_sulit); $i++) <i class="fa-solid fa-star" style="font-size: 10px;"></i> @endfor
                                         @if (fmod($post->rating_sulit, 1) != 0) <i class="fa-solid fa-star-half-stroke" style="font-size: 10px;"></i> @endif

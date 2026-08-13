@@ -23,6 +23,8 @@
                 <div class="text-danger small">{{ $message }}</div>
             @enderror
         </div>
+
+        <div id="image-preview-container" class="d-flex flex-wrap gap-2 mb-4"></div>
       
         {{-- Description --}}
         <div class="mb-3">
@@ -105,9 +107,9 @@
                 </div>
             </div>
 
-            {{-- Sulit --}}
+            {{-- Value --}}
             <div class="row align-items-center mb-3">
-                <div class="col-4 text-secondary small fw-bold">↳ Sulit (Value)</div>
+                <div class="col-4 text-secondary small fw-bold">↳ Value</div>
                 <div class="col-8 d-flex align-items-center gap-2">
                     <input type="number" name="rating_sulit" id="input_sulit" class="form-control form-control-sm rating-input" 
                         min="0.5" max="5.0" step="0.5" value="5.0" style="width: 70px;">

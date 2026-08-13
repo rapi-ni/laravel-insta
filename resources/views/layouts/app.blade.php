@@ -269,7 +269,32 @@
                 }
             });
         }
+        const imageInput = document.getElementById('images');
+        const previewContainer = document.getElementById('image-preview-container');
+
+        if (imageInput && previewContainer) {
+            imageInput.addEventListener('change', function() {
+                previewContainer.innerHTML = '';
+
+                const files = Array.from(this.files);
+                
+                files.slice(0, 5).forEach(file => {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        const previewHtml = `
+                            <div class="ratio ratio-1x1 border rounded shadow-sm" style="width: 80px; height: 80px; overflow: hidden;">
+                                <img src="${e.target.result}" class="w-100 h-100" style="object-fit: cover;">
+                            </div>
+                        `;
+                        previewContainer.insertAdjacentHTML('beforeend', previewHtml);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
+        }
     });
+
     </script>
 </body>
 
