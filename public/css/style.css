@@ -15,6 +15,34 @@
     font-size: 1.5rem;
 }
 
+/* Compact like control for comments and replies */
+.comment-like-form {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+}
+
+.comment-like-form .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    padding: 0;
+    line-height: 1;
+    border-radius: 50%;
+}
+
+.comment-like-form .comment-heart {
+    font-size: 0.85rem;
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.comment-like-form .btn:hover .comment-heart {
+    color: var(--gyaru-pink);
+    transform: scale(1.12);
+}
+
 /* extra small font size */
 .xsmall{
     font-size: 0.65rem;
