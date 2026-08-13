@@ -18,10 +18,14 @@
                             class="comment-like-form"
                             data-comment-id="{{ $comment->id }}"
                             method="post"
+                            action="{{ $comment->isLiked() ? route('like.comment.destroy', $comment->id) : route('like.comment.store', $comment->id) }}"
                             data-like-store-url="{{ route('like.comment.store', $comment->id) }}"
                             data-like-destroy-url="{{ route('like.comment.destroy', $comment->id) }}">
 
                             @csrf
+                            @if ($comment->isLiked())
+                                @method('DELETE')
+                            @endif
 
                             <button type="submit" class="btn btn-sm shadow-none p-0">
                                 @if ($comment->isLiked())
@@ -90,7 +94,7 @@
 
                                 <div class="small">
                                     <strong>{{ $latestReply->user->name }}</strong>
-                                    $nbsp;
+                                    &nbsp;
                                     {{ $latestReply->body }}
                                 
                                 {{-- Reply Like --}}
@@ -99,10 +103,14 @@
                                         class="comment-like-form"
                                         data-comment-id="{{ $latestReply->id }}"
                                         method="post"
+                                        action="{{ $latestReply->isLiked() ? route('like.comment.destroy', $latestReply->id) : route('like.comment.store', $latestReply->id) }}"
                                         data-like-store-url="{{ route('like.comment.store', $latestReply->id) }}"
                                         data-like-destroy-url="{{ route('like.comment.destroy', $latestReply->id) }}">
 
                                         @csrf
+                                        @if ($latestReply->isLiked())
+                                            @method('DELETE')
+                                        @endif
 
                                         <button 
                                             type="submit" 
@@ -176,10 +184,14 @@
                                                     class="comment-like-form"
                                                     data-comment-id="{{ $reply->id }}"
                                                     method="post"
+                                                    action="{{ $reply->isLiked() ? route('like.comment.destroy', $reply->id) : route('like.comment.store', $reply->id) }}"
                                                     data-like-store-url="{{ route('like.comment.store', $reply->id) }}"
                                                     data-like-destroy-url="{{ route('like.comment.destroy', $reply->id) }}">
 
                                                     @csrf
+                                                    @if ($reply->isLiked())
+                                                        @method('DELETE')
+                                                    @endif
 
                                                     <button
                                                         type="submit"
