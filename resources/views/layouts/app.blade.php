@@ -25,6 +25,8 @@
     {{-- CSS LINK --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+    {{-- Font awesome --}}
+    <link rel="stylesheet" href="https://cloudflare.com">
 </head>
 
 <body>
