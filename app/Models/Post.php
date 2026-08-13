@@ -41,4 +41,9 @@ class Post extends Model
     public function images(){
         return $this->hasMany(PostImage::class);
     }
+
+    # To get the location of a post
+    public function location(){
+        return $this->belongsTo(Location::class);
+    }
 }

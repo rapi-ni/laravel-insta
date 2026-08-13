@@ -190,6 +190,87 @@
             </div>
         </main>
     </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        
+        const ratingInputs = document.querySelectorAll('.rating-input');
+        if (ratingInputs.length > 0) {
+            ratingInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const val = parseFloat(this.value) || 0;
+                    const targetStarsId = this.id.replace('input_', 'stars_');
+                    const starsContainer = document.getElementById(targetStarsId);
+                    
+                    let starHtml = '';
+                    for (let i = 1; i <= 5; i++) {
+                        if (i <= val) starHtml += '<i class="fa-solid fa-star"></i>';
+                        else if (i - 0.5 === val) starHtml += '<i class="fa-solid fa-star-half-stroke"></i>';
+                        else starHtml += '<i class="fa-regular fa-star opacity-25"></i>';
+                    }
+                    if (starsContainer) starsContainer.innerHTML = starHtml;
+                });
+                input.dispatchEvent(new Event('input'));
+            });
+        }
+
+        const locationSearch = document.getElementById('location-search');
+        const locationList = document.getElementById('location-list');
+
+        if (locationSearch && locationList) {
+            locationList.classList.add('d-none');
+
+            locationSearch.addEventListener('input', function() {
+                const searchText = this.value.toLowerCase().trim();
+                const allRadios = locationList.querySelectorAll('input[type="radio"]');
+                allRadios.forEach(radio => radio.checked = false);
+
+                if (searchText === '') {
+                    locationList.classList.add('d-none');
+                    return;
+                }
+
+                let hasMatch = false;
+                const items = document.querySelectorAll('.location-item');
+
+                items.forEach(function(item) {
+                    const locationName = item.getAttribute('data-name').toLowerCase().trim();
+                    const radioButton = item.querySelector('input[type="radio"]');
+                    
+                    if (locationName.includes(searchText)) {
+                        item.classList.remove('d-none');
+                        hasMatch = true;
+                        if (locationName === searchText) {
+                            radioButton.checked = true;
+                        }
+                    } else {
+                        item.classList.add('d-none');
+                    }
+                });
+
+                if (hasMatch) locationList.classList.remove('d-none');
+                else locationList.classList.add('d-none');
+            });
+
+            document.querySelectorAll('.location-item').forEach(item => {
+                item.style.cursor = 'pointer';
+                item.addEventListener('click', function() {
+                    const radioButton = this.querySelector('input[type="radio"]');
+                    radioButton.checked = true;
+                    const labelText = this.querySelector('.form-check-label').innerText.trim();
+                    locationSearch.value = labelText;
+                    locationList.classList.add('d-none');
+                });
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!locationSearch.contains(e.target) && !locationList.contains(e.target)) {
+                    locationList.classList.add('d-none');
+                }
+            });
+        }
+    });
+    </script>
 </body>
 
 </html>
