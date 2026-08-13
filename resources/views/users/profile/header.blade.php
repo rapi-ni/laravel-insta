@@ -23,6 +23,13 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-outline-secondary btn-sm fw-bold">Following</button>
                         </form>
+                         {{-- message --}}
+                        <form action="{{ route('messages.start', $user) }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-secondary btn-sm fw-bold">
+                            <i class="fa-regular fa-paper-plane me-1"></i>Message
+                        </button>
+                    </form>
                     @else
                         <form action="{{ route('follow.store', $user->id) }}" method="post">
                             @csrf
@@ -30,12 +37,7 @@
                         </form>
                     @endif
 
-                    <form action="{{ route('messages.start', $user) }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-secondary btn-sm fw-bold">
-                            <i class="fa-regular fa-paper-plane me-1"></i>Message
-                        </button>
-                    </form>
+                    
                 @endif
             </div>
         </div>
