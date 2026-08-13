@@ -40,4 +40,31 @@ class Conversation extends Model
             ? $this->userTwo
             : $this->userOne;
     }
+
+    public function latestMessage()
+    {
+        return $this->hasOne(Message::class)
+            ->latestOfMany();
+    }
+
+    public function index()
+    {
+        $conversations = Conversation::with([
+            'userOne',
+            'userTwo',
+            'latestMessage',
+        ])
+            ->whereHas('messages')
+            ->where(function ($query) {
+                $query->where('user_one_id', Auth::id())
+                    ->orWhere('user_two_id', Auth::id());
+            })
+            ->latest('updated_at')
+            ->get();
+
+        return view(
+            'users.messages.index',
+            compact('conversations')
+        );
+    }
 }

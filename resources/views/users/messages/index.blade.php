@@ -14,7 +14,7 @@
                     @forelse ($conversations as $conversation)
                         @php
                             $otherUser = $conversation->otherUser(Auth::id());
-                            $latestMessage = $conversation->messages->first();
+                            $latestMessage = $conversation->latestMessage;
                         @endphp
 
                         <a href="{{ route('messages.show', $conversation) }}" class="dm-conversation-item">

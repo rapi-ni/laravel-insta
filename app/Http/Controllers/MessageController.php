@@ -13,13 +13,15 @@ class MessageController extends Controller
     public function index()
     {
         $conversations = Conversation::with([
-                'userOne',
-                'userTwo',
-                'messages' => function ($query) {
-                    $query->latest()->limit(1);
-                },
-            ])
-            ->where(function ($query) {
+            'userOne',
+            'userTwo',
+            'messages' => function ($query) {
+                $query->latest()->limit(1);
+            },
+        ])
+        // 1件以上メッセージが存在する場合
+            ->whereHas('messages')
+            ->where(function ($query){
                 $query->where('user_one_id', Auth::id())
                     ->orWhere('user_two_id', Auth::id());
             })
@@ -33,6 +35,13 @@ class MessageController extends Controller
     {
         abort_if($user->id === Auth::id(), 403);
 
+        // ログインユーザーが相手をフォローしているか
+        abort_unless(
+            $user->isFollowed(),
+            403,
+            'You can only message users you follow.'
+        );
+
         $userOneId = min(Auth::id(), $user->id);
         $userTwoId = max(Auth::id(), $user->id);
 
@@ -41,7 +50,10 @@ class MessageController extends Controller
             'user_two_id' => $userTwoId,
         ]);
 
-        return redirect()->route('messages.show', $conversation);
+        return redirect()->route(
+            'messages.show',
+            $conversation
+        );
     }
 
     public function show(Conversation $conversation)
@@ -70,12 +82,30 @@ class MessageController extends Controller
         ));
     }
 
-    public function store(Request $request, Conversation $conversation)
-    {
-        abort_unless($conversation->hasParticipant(Auth::id()), 403);
+    public function store(
+        Request $request,
+        Conversation $conversation
+    ) {
+        abort_unless(
+            $conversation->hasParticipant(Auth::id()),
+            403
+        );
+
+        $otherUser = $conversation->otherUser(Auth::id());
+
+        // 現在も相手をフォローしているか確認
+        abort_unless(
+            $otherUser->isFollowed(),
+            403,
+            'You can only message users you follow.'
+        );
 
         $validated = $request->validate([
-            'body' => ['required', 'string', 'max:1000'],
+            'body' => [
+                'required',
+                'string',
+                'max:1000',
+            ],
         ]);
 
         $conversation->messages()->create([
@@ -85,7 +115,10 @@ class MessageController extends Controller
 
         $conversation->touch();
 
-        return redirect()->route('messages.show', $conversation);
+        return redirect()->route(
+            'messages.show',
+            $conversation
+        );
     }
 
     public function destroy(Message $message)
