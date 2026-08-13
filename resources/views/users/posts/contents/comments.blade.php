@@ -76,7 +76,6 @@
                         </form>
                     </div>
 
-                    Replies
                     @if ($comment->replies->count() > 0)
                         <div class="ms-4 mt-2">
 
@@ -91,15 +90,11 @@
 
                                 <div class="small">
                                     <strong>{{ $latestReply->user->name }}</strong>
-                                </div>
-
-                                <div class="small">
+                                    $nbsp;
                                     {{ $latestReply->body }}
-                                </div>
                                 
                                 {{-- Reply Like --}}
                                 <div class="d-inline-flex align-items-center mt-1">
-                                    
                                     <form
                                         class="comment-like-form"
                                         data-comment-id="{{ $latestReply->id }}"
@@ -109,29 +104,37 @@
 
                                         @csrf
 
-                                        <button type="submit" class="btn btn-sm shadow-none p-0">
+                                        <button 
+                                            type="submit" 
+                                            class="btn btn-sm shadow-none p-0">
+
                                             @if ($latestReply->isLiked())
-                                            <i class="fa-solid fa-heart text-danger comment-heart"
-                                            data-liked="true"></i>
+
+                                               <i class="fa-solid fa-heart text-danger comment-heart"
+                                            data-liked="true">
+                                               </i>
                                             @else
                                                 <i class="fa-regular fa-heart comment-heart"
-                                                data-liked="false"></i>
+                                                data-liked="false">
+                                                </i>
                                             @endif
-                                        </button>
-                                            
+
+                                        </button>   
                                     </form>
 
-                                    <span class="ms-1" id="comment-like-count-{{ $latestReply->id }}">
+                                    <span 
+                                        class="ms-1" 
+                                        id="comment-like-count-{{ $latestReply->id }}">
                                         {{ $latestReply->likes->count() }}
                                     </span>
-
                                 </div>
-
-                                <div class="text-muted xsmall">
-                                    {{ date('M d, Y', strtotime($latestReply->created_at)) }}
-                                </div>
-                                
                             </div>
+
+                            <div class="text-muted xsmall">
+                                {{ date('M d, Y', strtotime($latestReply->created_at)) }}
+                            </div>
+                                
+                        </div>
 
                             {{-- View all replies --}}
                             @if ($comment->replies->count() > 1)
@@ -163,14 +166,11 @@
                                             
                                             <div class="small">
                                                 <strong>{{ $reply->user->name }}</strong>
-                                            </div>
-                                            
-                                            <div class="small">
+                                                &nbsp;
                                                 {{ $reply->body }}
-                                            </div>
                                             
-                                            {{-- Reply Like --}}
-                                            <div class="d-inline-flex align-items-center mt-1">
+                                                {{-- Reply Like --}}
+                                                <div class="d-inline-flex align-items-center mt-1">
                                                 
                                                 <form
                                                     class="comment-like-form"
@@ -186,18 +186,16 @@
                                                         class="btn btn-sm shadow-none p-0">
 
                                                         @if ($reply->isLiked())
-                                                            <i
-                                                                class="fa-solid fa-heart text-danger comment-heart"
+                                                            <i class="fa-solid fa-heart text-danger comment-heart"
                                                                 data-liked="true">
                                                             </i>
                                                         @else
-                                                            <i
-                                                            class="fa-regular fa-heart comment-heart"
-                                                            data-liked="false"></i>
+                                                            <i class="fa-regular fa-heart comment-heart"
+                                                               data-liked="false">
+                                                            </i>
                                                         @endif
 
                                                     </button>
-
                                                 </form>
                                                         
                                                 <span
@@ -205,8 +203,8 @@
                                                     id="comment-like-count-{{ $reply->id }}">
                                                     {{ $reply->likes->count() }}
                                                 </span>
-
                                             </div>
+                                        </div>
 
                                             <div class="text-muted xsmall">
                                                 {{ date('M d, Y', strtotime($reply->created_at)) }}

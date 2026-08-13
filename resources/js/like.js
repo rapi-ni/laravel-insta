@@ -14,13 +14,15 @@ document.addEventListener('DOMContentLoaded', function () {
         form.addEventListener('submit', function(event){
             event.preventDefault();
 
-            // const button = form.querySelector('button');
-
-            // if (button.disabled) {
-            //     return;
-            // }
-
-            // button.disabled = true;
+            const button = form.querySelector('button');
+            
+            // do nothing during request
+            if (button.disabled) {
+                return;
+            }
+            
+            // disabled button
+            button.disabled = true;
 
             const commentId = form.dataset.commentId;
             const heart = form.querySelector('.comment-heart');
@@ -91,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => {
                 console.error('Coment Like Error', error);
             })
-            // .finally(() => {
-            //     // click again if finish
-            //     button.disabled = false;
-            // });
+            .finally(() => {
+                // click again if finish
+                button.disabled = false;
+            });
         });
     });
 
@@ -106,6 +108,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         form.addEventListener('submit', function (event) {
             event.preventDefault();
+
+            const button = form.querySelector('button');
+
+            // do nothing during request
+            if (button.disabled) {
+                return;
+            }
+
+            // disabled button during request
+            button.disabled = true;
 
             const heart = form.querySelector('.fa-heart');
             const postId = form.dataset.postId;
@@ -186,6 +198,10 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => {
                 console.error(error);
+            })
+            .finally(() => {
+                // can click after finishing
+                button.disabled = false;
             });
         });
     });
