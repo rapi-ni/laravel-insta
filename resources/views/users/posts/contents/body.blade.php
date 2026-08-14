@@ -95,7 +95,6 @@
 
                 {{-- Taste --}}
                 @if($post->rating_taste)
-                    <!-- 💡 Vibesと全く同じ「col p-1」に統一！ -->
                     <div class="col p-1">
                         <div class="pt-1 px-2 rounded-3 h-100 d-flex flex-column align-items-center text-center justify-content-between" style="background-color: #fff5f9; border: 1px solid #ffbfda;">
                             <div class="fw-black mb-1" style="font-size: 12px; color: #ff007f;">Taste</div>
