@@ -105,6 +105,40 @@
     background-color: transparent;
 }
 
+/* posts (tab) */
+.post-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(255, 0, 127, 0.15) !important;
+    border-color: #ff007f !important;
+}
+
+.profile-nav-tabs .nav-link {
+    color: #ff3399 !important;
+    font-weight: bold !important;         
+    border: none !important;               
+    background: transparent !important;       
+    transition: all 0.2s ease-in-out;
+    opacity: 0.6;                       
+}
+
+.profile-nav-tabs .nav-link:hover {
+    opacity: 1 !important;         
+    color: #ff007f !important;
+}
+
+.profile-nav-tabs .nav-link.active {
+    color: #fff !important;                
+    background-color: #ff007f !important;  
+    border-radius: 50px !important;        
+    box-shadow: 2px 2px 5px rgba(255, 0, 127, 0.2) !important; 
+    opacity: 1 !important;                
+}
+
+
 /* followers / following modal */
 .follow-modal .modal-content {
     border: 0;
@@ -994,3 +1028,6 @@ body {
         grid-template-columns: repeat(5, minmax(2.5rem, 1fr));
     }
 }
+
+
+

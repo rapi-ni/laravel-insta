@@ -115,7 +115,7 @@
                             </li>
 
                             {{-- Account --}}
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown w-50">
                                 <button id="account-dropdown" class="btn nav-link gyaru-account-button"
                                     data-bs-toggle="dropdown">
                                     @if (Auth::user()->avatar)
@@ -126,7 +126,7 @@
                                     @endif
                                 </button>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
+                                <div class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="account-dropdown" style="min-width: 140px !important;">
                                     {{-- [SOON] Adimin Controllers --}}
                                     {{-- @can('admin') --}}
                                     @if (Gate::allows('admin'))
@@ -134,7 +134,7 @@
                                             <i class="fa-solid fa-user-gear"></i> Admin
                                         </a>
 
-                                        <hr class="dropdown-driver">
+                                        <hr class="dropdown-driver mt-0">
                                     @endif
                                     {{-- @endcan --}}
 

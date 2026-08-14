@@ -13,6 +13,15 @@
             top: 65px;
         }
     </style>
+
+    {{-- Back button --}}
+    <div class="p-2">
+        <a href="javascript:history.back()" class="text-decoration-none shadow-none d-flex align-items-center" style="color: #ff007f;" title="Back to Home">
+            <i class="fa-solid fa-chevron-left fs-5" style="filter: drop-shadow(1px 1px 0px rgba(255, 0, 127, 0.1));"></i>Back
+        </a>
+    </div>
+
+    {{-- Post --}}
     <div class="row border shadow">
         <div class="col p-0 border-end d-flex align-items-center justify-content-center" style="background-color: #fff;">
             @if($post->images->isNotEmpty())
@@ -136,7 +145,7 @@
                                     @if ($post->isLiked())
                                     <i class="fa-solid fa-heart text-danger" data-liked="true"></i> 
                                     @else
-                                     <i class="fa-regular fa-heart" data-liked="false"></i>
+                                     <i class="fa-regular fa-heart text-danger" data-liked="false"></i>
                                     @endif
                                 </button>
                             </form>
