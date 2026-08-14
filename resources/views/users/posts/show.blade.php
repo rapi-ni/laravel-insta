@@ -167,7 +167,7 @@
                     {{-- rate for food --}}
                     @if($post->rating_taste || $post->rating_volume || $post->rating_sulit || $post->rating_vibes)
                         <div class="mt-3 mb-2 p-3 bg-white rounded-4 border border-2 shadow-sm" 
-                            style="max-width: 290px; border-color: #ff007f !important; box-shadow: 2px 2px 5px rgba(255, 0, 127, 0.15) !important; font-family: 'Hiragino Maru Gothic ProN', 'Comic Sans MS', sans-serif;">
+                            style="max-width: 290px; border-color: overflow: hidden !important; #ff007f !important; box-shadow: 2px 2px 5px rgba(255, 0, 127, 0.15) !important; font-family: 'Hiragino Maru Gothic ProN', 'Comic Sans MS', sans-serif;">
                             
                             <div class="text-center fw-bolder mb-3 text-uppercase tracking-wider" style="color: #ff007f; font-size: 13px; text-shadow: 0.5px 0.5px 0px #fff;">
                                 🎀 My Rate Scale 🎀
