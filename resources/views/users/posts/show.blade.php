@@ -166,56 +166,69 @@
 
                     {{-- rate for food --}}
                     @if($post->rating_taste || $post->rating_volume || $post->rating_sulit || $post->rating_vibes)
-                        <div class="mt-3 p-2 bg-light rounded border small text-secondary" style="max-width: 280px;">
+                        <div class="mt-3 mb-2 p-3 bg-white rounded-4 border border-2 shadow-sm" 
+                            style="max-width: 290px; border-color: #ff007f !important; box-shadow: 2px 2px 5px rgba(255, 0, 127, 0.15) !important; font-family: 'Hiragino Maru Gothic ProN', 'Comic Sans MS', sans-serif;">
                             
+                            <div class="text-center fw-bolder mb-3 text-uppercase tracking-wider" style="color: #ff007f; font-size: 13px; text-shadow: 0.5px 0.5px 0px #fff;">
+                                🎀 My Rate Scale 🎀
+                            </div>
+
                             {{-- Taste --}}
                             @if($post->rating_taste)
-                                <div class="row g-0 align-items-center mb-1">
-                                    <div class="col-4 text-dark fw-bold" style="font-size: 11px;">↳ Taste</div>
-                                    <div class="col-8 text-warning d-flex align-items-center gap-1">
-                                        @for ($i = 1; $i <= floor($post->rating_taste); $i++) <i class="fa-solid fa-star" style="font-size: 10px;"></i> @endfor
-                                        @if (fmod($post->rating_taste, 1) != 0) <i class="fa-solid fa-star-half-stroke" style="font-size: 10px;"></i> @endif
-                                        @for ($i = 1; $i <= (5 - ceil($post->rating_taste)); $i++) <i class="fa-regular fa-star opacity-25" style="font-size: 10px;"></i> @endfor
-                                        <span class="text-muted ms-1" style="font-size: 10px;">({{ number_format($post->rating_taste, 1) }})</span>
+                                <div class="row g-0 align-items-center mb-2 p-1 rounded-3" style="background: linear-gradient(90deg, #fff5f9, #fff);">
+                                    <div class="col-4 fw-bold" style="font-size: 12px; color: #ff007f;">
+                                        Taste
+                                    </div>
+                                    <div class="col-8 d-flex align-items-center gap-1 justify-content-end">
+                                        @for ($i = 1; $i <= floor($post->rating_taste); $i++) <i class="fa-solid fa-star text-warning" style="font-size: 11px;"></i> @endfor
+                                        @if (fmod($post->rating_taste, 1) != 0) <i class="fa-solid fa-star-half-stroke text-warning" style="font-size: 11px;"></i> @endif
+                                        @for ($i = 1; $i <= (5 - ceil($post->rating_taste)); $i++) <i class="fa-regular fa-star opacity-25 text-secondary" style="font-size: 11px;"></i> @endfor
+                                        <span class="fw-bold ms-2 px-2 py-0.5 rounded-pill" style="font-size: 11px; background-color: #ff007f; color: #fff;">{{ number_format($post->rating_taste, 1) }}</span>
                                     </div>
                                 </div>
                             @endif
 
                             {{-- Volume --}}
                             @if($post->rating_volume)
-                                <div class="row g-0 align-items-center mb-1">
-                                    <div class="col-4 text-dark fw-bold" style="font-size: 11px;">↳ Volume</div>
-                                    <div class="col-8 text-warning d-flex align-items-center gap-1">
-                                        @for ($i = 1; $i <= floor($post->rating_volume); $i++) <i class="fa-solid fa-star" style="font-size: 10px;"></i> @endfor
-                                        @if (fmod($post->rating_volume, 1) != 0) <i class="fa-solid fa-star-half-stroke" style="font-size: 10px;"></i> @endif
-                                        @for ($i = 1; $i <= (5 - ceil($post->rating_volume)); $i++) <i class="fa-regular fa-star opacity-25" style="font-size: 10px;"></i> @endfor
-                                        <span class="text-muted ms-1" style="font-size: 10px;">({{ number_format($post->rating_volume, 1) }})</span>
+                                <div class="row g-0 align-items-center mb-2 p-1 rounded-3" style="background: linear-gradient(90deg, #fff5f9, #fff);">
+                                    <div class="col-4 fw-bold" style="font-size: 12px; color: #ff007f;">
+                                        Volume
+                                    </div>
+                                    <div class="col-8 d-flex align-items-center gap-1 justify-content-end">
+                                        @for ($i = 1; $i <= floor($post->rating_volume); $i++) <i class="fa-solid fa-star text-warning" style="font-size: 11px;"></i> @endfor
+                                        @if (fmod($post->rating_volume, 1) != 0) <i class="fa-solid fa-star-half-stroke text-warning" style="font-size: 11px;"></i> @endif
+                                        @for ($i = 1; $i <= (5 - ceil($post->rating_volume)); $i++) <i class="fa-regular fa-star opacity-25 text-secondary" style="font-size: 11px;"></i> @endfor
+                                        <span class="fw-bold ms-2 px-2 py-0.5 rounded-pill" style="font-size: 11px; background-color: #ff007f; color: #fff;">{{ number_format($post->rating_volume, 1) }}</span>
                                     </div>
                                 </div>
                             @endif
 
                             {{-- Value --}}
                             @if($post->rating_sulit)
-                                <div class="row g-0 align-items-center mb-1">
-                                    <div class="col-4 text-dark fw-bold" style="font-size: 11px;">↳ Value</div>
-                                    <div class="col-8 text-warning d-flex align-items-center gap-1">
-                                        @for ($i = 1; $i <= floor($post->rating_sulit); $i++) <i class="fa-solid fa-star" style="font-size: 10px;"></i> @endfor
-                                        @if (fmod($post->rating_sulit, 1) != 0) <i class="fa-solid fa-star-half-stroke" style="font-size: 10px;"></i> @endif
-                                        @for ($i = 1; $i <= (5 - ceil($post->rating_sulit)); $i++) <i class="fa-regular fa-star opacity-25" style="font-size: 10px;"></i> @endfor
-                                        <span class="text-muted ms-1" style="font-size: 10px;">({{ number_format($post->rating_sulit, 1) }})</span>
+                                <div class="row g-0 align-items-center mb-2 p-1 rounded-3" style="background: linear-gradient(90deg, #fff5f9, #fff);">
+                                    <div class="col-4 fw-bold" style="font-size: 12px; color: #ff007f;">
+                                        Value
+                                    </div>
+                                    <div class="col-8 d-flex align-items-center gap-1 justify-content-end">
+                                        @for ($i = 1; $i <= floor($post->rating_sulit); $i++) <i class="fa-solid fa-star text-warning" style="font-size: 11px;"></i> @endfor
+                                        @if (fmod($post->rating_sulit, 1) != 0) <i class="fa-solid fa-star-half-stroke text-warning" style="font-size: 11px;"></i> @endif
+                                        @for ($i = 1; $i <= (5 - ceil($post->rating_sulit)); $i++) <i class="fa-regular fa-star opacity-25 text-secondary" style="font-size: 11px;"></i> @endfor
+                                        <span class="fw-bold ms-2 px-2 py-0.5 rounded-pill" style="font-size: 11px; background-color: #ff007f; color: #fff;">{{ number_format($post->rating_sulit, 1) }}</span>
                                     </div>
                                 </div>
                             @endif
 
                             {{-- Vibes --}}
                             @if($post->rating_vibes)
-                                <div class="row g-0 align-items-center">
-                                    <div class="col-4 text-dark fw-bold" style="font-size: 11px;">↳ Vibes</div>
-                                    <div class="col-8 text-warning d-flex align-items-center gap-1">
-                                        @for ($i = 1; $i <= floor($post->rating_vibes); $i++) <i class="fa-solid fa-star" style="font-size: 10px;"></i> @endfor
-                                        @if (fmod($post->rating_vibes, 1) != 0) <i class="fa-solid fa-star-half-stroke" style="font-size: 10px;"></i> @endif
-                                        @for ($i = 1; $i <= (5 - ceil($post->rating_vibes)); $i++) <i class="fa-regular fa-star opacity-25" style="font-size: 10px;"></i> @endfor
-                                        <span class="text-muted ms-1" style="font-size: 10px;">({{ number_format($post->rating_vibes, 1) }})</span>
+                                <div class="row g-0 align-items-center p-1 rounded-3" style="background: linear-gradient(90deg, #fff5f9, #fff);">
+                                    <div class="col-4 fw-bold" style="font-size: 12px; color: #ff007f;">
+                                        Vibes
+                                    </div>
+                                    <div class="col-8 d-flex align-items-center gap-1 justify-content-end">
+                                        @for ($i = 1; $i <= floor($post->rating_vibes); $i++) <i class="fa-solid fa-star text-warning" style="font-size: 11px;"></i> @endfor
+                                        @if (fmod($post->rating_vibes, 1) != 0) <i class="fa-solid fa-star-half-stroke text-warning" style="font-size: 11px;"></i> @endif
+                                        @for ($i = 1; $i <= (5 - ceil($post->rating_vibes)); $i++) <i class="fa-regular fa-star opacity-25 text-secondary" style="font-size: 11px;"></i> @endfor
+                                        <span class="fw-bold ms-2 px-2 py-0.5 rounded-pill" style="font-size: 11px; background-color: #ff007f; color: #fff;">{{ number_format($post->rating_vibes, 1) }}</span>
                                     </div>
                                 </div>
                             @endif
@@ -223,7 +236,8 @@
                         </div>
                     @endif
 
-                    <p class="text-uppercase text-muted xsmall">{{ date('M d, Y', strtotime( $post->created_at )) }}</p>
+
+                    <p class="text-uppercase text-muted xsmall text-end">{{ date('M d, Y', strtotime( $post->created_at )) }}</p>
 
                     {{-- include comments here --}}
                     <div class="mt-4">
