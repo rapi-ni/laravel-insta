@@ -55,7 +55,7 @@ class LikeController extends Controller
     // Comment / Reply Like 
 
     #Store comment like
-    public function commentStore($comment_id){
+    public function commentStore(Request $request, $comment_id){
         // check exist like 
         $existingLike = $this->like
            ->where('user_id', Auth::user()->id) 
@@ -72,20 +72,28 @@ class LikeController extends Controller
             $like->save();
         }
 
-        return response()->json([
-            'message'=> 'Comment add the like'
-        ]);
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message'=> 'Comment add the like'
+            ]);
+        }
+
+        return redirect()->back();
     }
 
     #Delete comment like 
-    public function commentDestroy($comment_id){
+    public function commentDestroy(Request $request, $comment_id){
         $this->like
            ->where('user_id', Auth::user()->id)
            ->where('comment_id', $comment_id)
            ->delete();
 
-        return response()->json([
-            'message'=> 'Comment remove the like'
-        ]);
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message'=> 'Comment remove the like'
+            ]);
+        }
+
+        return redirect()->back();
     }
 }

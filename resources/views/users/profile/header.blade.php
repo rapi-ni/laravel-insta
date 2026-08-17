@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row align-items-center profile-hero">
     <div class="col-4">
         @if ($user->avatar)
             <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="img-thumbnail rounded-circle d-block mx-auto avatar-lg">
@@ -9,7 +9,7 @@
     <div class="col-8">
         <div class="row mb-3">
             <div class="col-auto">
-                <h2 class="display-6 mb-0">
+                <h2 class="display-6 mb-0 profile-display-name">
                     {{ $user->name }}
                 </h2>
             </div>
@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <p class="fs-bold">{{ $user->introduction}}</p>
+        <p class="profile-introduction mb-0">{{ $user->introduction}}</p>
     </div>
 </div>
 
