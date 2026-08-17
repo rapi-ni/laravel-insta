@@ -177,7 +177,6 @@ class PostController extends Controller
             'category_id'   => 'required|exists:categories,id',
             'location_id'   => 'required|exists:locations,id',
             'description'   => 'required|min:1|max:1000',
-
             'image'         => 'nullable|mimes:jpeg,jpg,png,gif|max:40960',
             'rating_taste'  => 'required|numeric|between:0.5,5.0',
             'rating_volume' => 'required|numeric|between:0.5,5.0',

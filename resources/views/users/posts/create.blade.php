@@ -12,7 +12,7 @@
             <input type="file" name="images[]" id="images" class="form-control" aria-describedby="image-info" multiple>
             <div class="form-text" id="images-info">
                 The acceptable formats are jpeg, jpg, png, and gif only.<br>
-                Max file size is 1048kb.<span class="text-muted fw-normal">(up to 5)</span>
+                Max file size is 3MB per file.<span class="text-muted fw-normal">(up to 5)</span>
             </div>
             {{-- Error --}}
             @error('images')
@@ -46,7 +46,7 @@
 
             @foreach ($all_categories as $category)
                 <div class="form-check form-check-inline">
-                    <input type="radio" name="category_id" id="{{ $category->name }}" value="{{ $category->id }}" class="form-check-input category-checkbox">
+                    <input type="radio" name="category_id" id="{{ $category->name }}" value="{{ $category->id }}" class="form-check-input category-checkbox" {{ old('category_id') == $category->id ? 'checked' : '' }}>
                     <label for="{{ $category->name }}" class="form-check-label">{{ ucfirst($category->name) }}</label>
                 </div>
             @endforeach
@@ -63,14 +63,14 @@
             </label>
 
             {{-- search for location --}}
-            <input type="text" name="location_name" id="location-search" class="form-control form-control-sm mb-3" placeholder="Search or type a new location... (e.g., UCMA, IT Park)" autocomplete="off">
+            <input type="text" name="location_name" id="location-search" class="form-control form-control-sm mb-3" placeholder="Search or type a new location... (e.g., UCMA, IT Park)" autocomplete="off" value="{{ old('location_name') }}">
     
-            <input type="hidden" name="location_id" id="hidden-location-id">
+            <input type="hidden" name="location_id" id="hidden-location-id" value="{{ old('location_id') }}">
 
             <div id="location-list" class="d-flex flex-column gap-2 d-none bg-white p-2 border rounded position-absolute w-100 shadow" style="max-height: 150px; overflow-y: auto; z-index: 1000;">
                 @foreach ($all_locations as $location)
                     <div class="form-check location-item" data-id="{{ $location->id }}" data-name="{{ strtolower($location->name) }}" style="cursor: pointer;">
-                        <input type="radio" name="location_radio" id="loc-{{ $location->id }}" value="{{ $location->id }}" class="form-check-input">
+                        <input type="radio" name="location_radio" id="loc-{{ $location->id }}" value="{{ $location->id }}" class="form-check-input" {{ old('location_id') == $location->id ? 'checked' : '' }}>
                         <label for="loc-{{ $location->id }}" class="form-check-label small text-dark fw-bold location-name-label">{{ $location->name }}</label>
                     </div>
                 @endforeach
@@ -92,7 +92,7 @@
                 <div class="col-4 text-secondary small fw-bold">↳ Taste</div>
                 <div class="col-8 d-flex align-items-center gap-2">
                     <input type="number" name="rating_taste" id="input_taste" class="form-control form-control-sm rating-input" 
-                        min="0.5" max="5.0" step="0.5" value="5.0" style="width: 70px;">
+                        min="0.5" max="5.0" step="0.5" value="{{ old('rating_taste', '5.0') }}" style="width: 70px;">
                     <div class="star-display text-warning ms-2" id="stars_taste" style="font-size: 16px;"></div>
                 </div>
             </div>
@@ -102,7 +102,7 @@
                 <div class="col-4 text-secondary small fw-bold">↳ Volume</div>
                 <div class="col-8 d-flex align-items-center gap-2">
                     <input type="number" name="rating_volume" id="input_volume" class="form-control form-control-sm rating-input" 
-                        min="0.5" max="5.0" step="0.5" value="5.0" style="width: 70px;">
+                        min="0.5" max="5.0" step="0.5" value="{{ old('rating_volume', '5.0') }}" style="width: 70px;">
                     <div class="star-display text-warning ms-2" id="stars_volume" style="font-size: 16px;"></div>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                 <div class="col-4 text-secondary small fw-bold">↳ Value</div>
                 <div class="col-8 d-flex align-items-center gap-2">
                     <input type="number" name="rating_sulit" id="input_sulit" class="form-control form-control-sm rating-input" 
-                        min="0.5" max="5.0" step="0.5" value="5.0" style="width: 70px;">
+                        min="0.5" max="5.0" step="0.5" value="{{ old('rating_sulit', '5.0') }}" style="width: 70px;">
                     <div class="star-display text-warning ms-2" id="stars_sulit" style="font-size: 16px;"></div>
                 </div>
             </div>
@@ -122,7 +122,7 @@
                 <div class="col-4 text-secondary small fw-bold">↳ Vibes</div>
                 <div class="col-8 d-flex align-items-center gap-2">
                     <input type="number" name="rating_vibes" id="input_vibes" class="form-control form-control-sm rating-input" 
-                        min="0.5" max="5.0" step="0.5" value="5.0" style="width: 70px;">
+                        min="0.5" max="5.0" step="0.5" value="{{ old('rating_vibes', '5.0') }}" style="width: 70px;">
                     <div class="star-display text-warning ms-2" id="stars_vibes" style="font-size: 16px;"></div>
                 </div>
             </div>
