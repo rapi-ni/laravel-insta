@@ -551,6 +551,52 @@ body {
     background: var(--gyaru-pink-light);
 }
 
+.dm-new-chat-card {
+    position: sticky;
+    top: 1.5rem;
+}
+
+.dm-messageable-list {
+    max-height: 65vh;
+    overflow-y: auto;
+}
+
+.dm-messageable-user {
+    border-bottom: 1px solid rgba(244, 63, 141, 0.1);
+}
+
+.dm-messageable-user:last-child {
+    border-bottom: 0;
+}
+
+.dm-messageable-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    color: var(--gyaru-text);
+    text-align: left;
+    background: transparent;
+    border: 0;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.dm-messageable-button:hover {
+    color: var(--gyaru-pink-dark);
+    background: var(--gyaru-pink-light);
+}
+
+.dm-messageable-button .dm-avatar,
+.dm-messageable-button .dm-avatar-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.dm-messageable-button .dm-avatar-icon {
+    font-size: 2.5rem;
+}
+
 .dm-messages {
     min-height: 400px;
     max-height: 60vh;
@@ -639,6 +685,12 @@ body {
 .dm-send-button:hover {
     color: #fff;
     transform: translateY(-1px);
+}
+
+@media (max-width: 991.98px) {
+    .dm-new-chat-card {
+        position: static;
+    }
 }
 
 .dm-unread-badge {
@@ -1028,6 +1080,5 @@ body {
         grid-template-columns: repeat(5, minmax(2.5rem, 1fr));
     }
 }
-
 
 

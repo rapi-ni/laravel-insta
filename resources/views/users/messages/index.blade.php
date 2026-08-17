@@ -3,8 +3,8 @@
 @section('title', 'Messages')
 
 @section('content')
-    <div class="row justify-content-center">
-        <div class="col-lg-7">
+    <div class="row g-4">
+        <div class="col-lg-8">
             <div class="dm-card">
                 <div class="dm-card-header">
                     <h2 class="h5 fw-bold mb-0">Messages</h2>
@@ -54,6 +54,47 @@
                         <div class="text-center text-secondary py-5">
                             <i class="fa-regular fa-paper-plane fs-1 mb-3"></i>
                             <p class="mb-0">No conversations yet.</p>
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="dm-card dm-new-chat-card">
+                <div class="dm-card-header">
+                    <h2 class="h6 fw-bold mb-1">
+                        <i class="fa-solid fa-pen-to-square me-2" aria-hidden="true"></i>
+                        New message
+                    </h2>
+                    <small class="text-secondary">Select someone you follow</small>
+                </div>
+
+                <div class="dm-messageable-list">
+                    @forelse ($messageableUsers as $user)
+                        <form action="{{ route('messages.start', $user) }}" method="post"
+                            class="dm-messageable-user">
+                            @csrf
+
+                            <button type="submit" class="dm-messageable-button">
+                                <span class="flex-shrink-0">
+                                    @if ($user->avatar)
+                                        <img src="{{ $user->avatar }}" alt="{{ $user->name }}"
+                                            class="rounded-circle dm-avatar">
+                                    @else
+                                        <i class="fa-solid fa-circle-user text-secondary dm-avatar-icon"
+                                            aria-hidden="true"></i>
+                                    @endif
+                                </span>
+
+                                <span class="fw-bold text-truncate">{{ $user->name }}</span>
+                                <i class="fa-regular fa-paper-plane ms-auto" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    @empty
+                        <div class="text-center text-secondary p-4">
+                            <i class="fa-solid fa-user-plus fs-3 mb-2" aria-hidden="true"></i>
+                            <p class="small mb-0">Follow someone to start a conversation.</p>
                         </div>
                     @endforelse
                 </div>
