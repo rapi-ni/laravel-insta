@@ -18,11 +18,7 @@
                     <a href="{{ route('profile.edit')}}" class="btn btn-outline-secondary btn-sm fw-bold">Edit Profile</a>
                 @else
                     @if ($user->isFollowed())
-                        <form action="{{ route('follow.destroy', $user->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-outline-secondary btn-sm fw-bold">Following</button>
-                        </form>
+                        @include('users.profile.following-menu', ['listedUser' => $user])
                          {{-- message --}}
                         <form action="{{ route('messages.start', $user) }}" method="post">
                         @csrf

@@ -45,16 +45,16 @@ class PostController extends Controller
             'location_name' => 'required|min:1|max:255',
             'description'   => 'required|min:1|max:1000',
             'images'   => 'required|array|max:5',
-            'images.*' => 'image|mimes:jpeg,jpg,png,gif|max:409600',
+            'images.*' => 'image|mimes:jpeg,jpg,png,gif|max:40960',
             'rating_taste'  => 'required|numeric|between:0.5,5.0',
             'rating_volume' => 'required|numeric|between:0.5,5.0',
             'rating_sulit'  => 'required|numeric|between:0.5,5.0',
             'rating_vibes'  => 'required|numeric|between:0.5,5.0',
-            'images'        => 'required|array|max:5'
         ]);
 
         #2. Save the post
         $this->post->user_id = Auth::user()->id;
+        $this->post->description = $request->description;
 
         $manager = new ImageManager(new Driver());
 
@@ -177,8 +177,7 @@ class PostController extends Controller
             'category_id'   => 'required|exists:categories,id',
             'location_id'   => 'required|exists:locations,id',
             'description'   => 'required|min:1|max:1000',
-
-            'image'         => 'nullable|mimes:jpeg,jpg,png,gif|max:409600',
+            'image'         => 'nullable|mimes:jpeg,jpg,png,gif|max:40960',
             'rating_taste'  => 'required|numeric|between:0.5,5.0',
             'rating_volume' => 'required|numeric|between:0.5,5.0',
             'rating_sulit'  => 'required|numeric|between:0.5,5.0',
