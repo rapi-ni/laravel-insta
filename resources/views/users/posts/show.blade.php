@@ -22,7 +22,7 @@
     </div>
 
     {{-- Post --}}
-    <div class="row border shadow">
+    <div class="row border shadow m-0 bg-white rounded-4 overflow-hidden" style="border-color: #ff007f !important;">
         <div class="col p-0 border-end d-flex align-items-center justify-content-center" style="background-color: #fff;">
             @if($post->images->isNotEmpty())
             <div id="carouselPost-{{ $post->id }}" class="carousel slide w-100 position-relative" data-bs-ride="false">
@@ -61,7 +61,7 @@
 
         <div class="col-4 px-0 bg-white">
             <div class="card border-0">
-                <div class="card-header bg-white py-3">
+                <div class="card-header bg-white py-3 border-bottom" style="border-color: #ff007f !important;">
                     <div class="row align-items-center">
                         <div class="col-auto">
                             <a href="{{ route('profile.show', $post->user->id) }}">
