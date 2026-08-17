@@ -25,10 +25,20 @@ class MessageController extends Controller
                 $query->where('user_one_id', Auth::id())
                     ->orWhere('user_two_id', Auth::id());
             })
-            ->latest('updated_at')
+        ->latest('updated_at')
+        ->get();
+
+        $messageableUsers = User::query()
+            ->whereHas('followers', function ($query) {
+                $query->where('follower_id', Auth::id());
+            })
+            ->orderBy('name')
             ->get();
 
-        return view('users.messages.index', compact('conversations'));
+        return view('users.messages.index', compact(
+            'conversations',
+            'messageableUsers'
+        ));
     }
 
     public function start(User $user)
