@@ -10,35 +10,45 @@
                 <div class="col-4">
                     <h3 class="text-muted text-center">Following</h3>
                     @foreach ($user->following as $following)
+                        @php
+                            $listedUser = $following->following;
+                            $canMessage = $listedUser->id !== Auth::id() && $listedUser->isFollowed();
+                        @endphp
+
                         <div class="row align-items-center mt-3">
                             <div class="col-auto">
-                                <a href="{{ route('profile.show', $following->following->id) }}">
-                                    @if ( $following->following->avatar )
-                                        <img src="{{ $following->following->avatar}}" alt="{{ $following->following->name }}" class="rounded-circle avatar-sm">
+                                <a href="{{ route('profile.show', $listedUser->id) }}">
+                                    @if ($listedUser->avatar)
+                                        <img src="{{ $listedUser->avatar }}" alt="{{ $listedUser->name }}" class="rounded-circle avatar-sm">
                                     @else
                                         <i class="fa-solid fa-circle-user text-secondary icon-sm"></i>
                                     @endif
                                 </a>
                             </div>
                             <div class="col ps-0 text-truncate">
-                                <a href="{{ route('profile.show', $following->following->id) }}" class="text-decoration-none text-dark fw-bold">{{ $following->following->name }}</a>
+                                <a href="{{ route('profile.show', $listedUser->id) }}" class="text-decoration-none text-dark fw-bold">{{ $listedUser->name }}</a>
                             </div>
-                            <div class="col-auto text-end">
-                                @if ($following->following->id != Auth::user()->id)
-                                    {{-- @if ($following->following->isFollowed()) --}}
-                                        <form action="{{ route('follow.destroy', $following->following->id) }}" method="post">
+                            <div class="col-auto d-flex align-items-center gap-2 text-end">
+                                @if ($canMessage)
+                                    <form action="{{ route('messages.start', $listedUser) }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="follow-message-button"
+                                            title="Message {{ $listedUser->name }}"
+                                            aria-label="Message {{ $listedUser->name }}">
+                                            <i class="fa-regular fa-paper-plane" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                @endif
+
+                                @if ($listedUser->id !== Auth::id())
+                                    @if ($canMessage)
+                                        @include('users.profile.following-menu', ['listedUser' => $listedUser])
+                                    @else
+                                        <form action="{{ route('follow.store', $listedUser->id) }}" method="post">
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="border-0 bg-transparent p-0 text-secondary btn-sm">Following</button>
+                                            <button type="submit" class="btn btn-primary btn-sm fw-bold">Follow</button>
                                         </form>
-                                    {{-- @else --}}
-                                        {{-- <form action="{{ route('follow.store') }}" method="post">
-                                            @csrf
-                                            <button type="submit" class="border-0 bg-transparent p-0 text-primary btn-sm">Follow</button>
-                                        </form> --}}
-                                    {{-- @endif                                  
-                                @else --}}
-                                    
+                                    @endif
                                 @endif
                             </div>
                         </div>
@@ -50,4 +60,3 @@
         @endif
     </div>
 @endsection
- 
