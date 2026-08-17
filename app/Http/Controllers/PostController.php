@@ -45,7 +45,7 @@ class PostController extends Controller
             'location_name' => 'required|min:1|max:255',
             'description'   => 'required|min:1|max:1000',
             'images'   => 'required|array|max:5',
-            'images.*' => 'image|mimes:jpeg,jpg,png,gif|max:10240',
+            'images.*' => 'image|mimes:jpeg,jpg,png,gif|max:409600',
             'rating_taste'  => 'required|numeric|between:0.5,5.0',
             'rating_volume' => 'required|numeric|between:0.5,5.0',
             'rating_sulit'  => 'required|numeric|between:0.5,5.0',
@@ -178,7 +178,7 @@ class PostController extends Controller
             'location_id'   => 'required|exists:locations,id',
             'description'   => 'required|min:1|max:1000',
 
-            'image'         => 'nullable|mimes:jpeg,jpg,png,gif|max:10240',
+            'image'         => 'nullable|mimes:jpeg,jpg,png,gif|max:409600',
             'rating_taste'  => 'required|numeric|between:0.5,5.0',
             'rating_volume' => 'required|numeric|between:0.5,5.0',
             'rating_sulit'  => 'required|numeric|between:0.5,5.0',
