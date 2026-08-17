@@ -1,14 +1,13 @@
-{{-- clickable image with multi-image slideshow --}}
-<div class="container p-0">
+{{-- Post media --}}
+<div class="post-media">
     @if($post->images->isNotEmpty())
         <div id="carouselTimeline-{{ $post->id }}" class="carousel slide w-100" data-bs-ride="false">
-            
             <div class="carousel-inner">
                 @foreach($post->images as $index => $post_image)
                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                         <a href="{{ route('post.show', $post->id) }}">
                             <div class="ratio ratio-1x1">
-                                <img src="{{ $post_image->image }}" alt="post image" class="w-100 h-100 d-block" style="object-fit: cover;">
+                                <img src="{{ $post_image->image }}" alt="Post by {{ $post->user->name }}" class="w-100 h-100 d-block">
                             </div>
                         </a>
                     </div>
@@ -16,62 +15,57 @@
             </div>
 
             @if($post->images->count() > 1)
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselTimeline-{{ $post->id }}" data-bs-slide="prev" style="z-index: 5;">
+                <button class="carousel-control-prev post-carousel-control" type="button" data-bs-target="#carouselTimeline-{{ $post->id }}" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselTimeline-{{ $post->id }}" data-bs-slide="next" style="z-index: 5;">
+                <button class="carousel-control-next post-carousel-control" type="button" data-bs-target="#carouselTimeline-{{ $post->id }}" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
             @endif
         </div>
-
-    {{-- if post has only one image... --}}
     @else
         <a href="{{ route('post.show', $post->id) }}">
             <div class="ratio ratio-1x1">
-                <img src="{{ $post->image }}" alt="post id {{ $post->id }}" class="w-100 h-100" style="object-fit: cover;">
+                <img src="{{ $post->image }}" alt="Post by {{ $post->user->name }}" class="w-100 h-100">
             </div>
         </a>
     @endif
 </div>
 
-<div class="card-body">
-    {{-- heart button + no. of links --}}
-    <div class="row align-items-center">
-        <div class="col-auto">
+<div class="card-body post-content">
+    <div class="post-actions">
+        <form class="like-form" action="{{ route('like.store', $post->id) }}" data-post-id="{{ $post->id }}"
+            data-like-store-url="{{ route('like.store', $post->id) }}"
+            data-like-destroy-url="{{ route('like.destroy', $post->id) }}" method="post">
+            @csrf
+            <button type="submit" class="post-like-button" aria-label="Like this post">
+                @if ($post->isLiked())
+                    <i class="fa-solid fa-heart text-danger" data-liked="true"></i>
+                @else
+                    <i class="fa-regular fa-heart" data-liked="false"></i>
+                @endif
+                <span id="like-count-{{ $post->id }}">{{ $post->likes->count() }}</span>
+            </button>
+        </form>
 
-            <form class="like-form" action="{{ route('like.store', $post->id) }}" data-post-id="{{ $post->id }}"
-                data-like-store-url="{{ route('like.store', $post->id) }}"
-                data-like-destroy-url="{{ route('like.destroy', $post->id) }}" method="post">
-
-                @csrf
-
-                <button type="submit" class="btn btn-sm shadow-none p-0">
-                    @if ($post->isLiked())
-                        <i class="fa-solid fa-heart text-danger" data-liked="true"></i>
-                    @else
-                        <i class="fa-regular fa-heart" data-liked="false"></i>
-                    @endif
-                </button>
-                <span id="like-count-{{ $post->id }}">
-                    {{ $post->likes->count() }}
-                </span>
-            </form>
-
-
-        </div>
-        <div class="col text-end">
+        <div class="post-categories" aria-label="Categories">
             @forelse ($post->categorypost as $category)
-                <div class="badge bg-secondary bg-opacity-50">
-                    {{ $category->category->name }}
-                </div>
-            @empty
-                <span class="badge bg-dark text-light small">Uncategorized
+                <span class="post-category-chip">
+                    <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+                    {{ ucfirst($category->category->name) }}
                 </span>
+            @empty
+                <span class="post-category-chip post-category-chip--muted">Uncategorized</span>
             @endforelse
         </div>
+    </div>
+
+
+    <div class="post-caption">
+        <a href="{{ route('profile.show', $post->user->id) }}" class="post-caption-author">{{ $post->user->name }}</a>
+        <p>{{ $post->description }}</p>
     </div>
 
     {{-- owner + description --}}
@@ -138,25 +132,11 @@
                     </div>
                 @endif
 
-                {{-- Vibes --}}
-                @if($post->rating_vibes)
-                    <div class="col p-1">
-                        <div class="pt-1 px-2 rounded-3 h-100 d-flex flex-column align-items-center text-center justify-content-between" style="background-color: #fff5f9; border: 1px solid #ffbfda;">
-                            <div class="fw-black mb-1" style="font-size: 12px; color: #ff007f;">Vibes</div>
-                            <div class="text-warning d-flex justify-content-center gap-0.5 mb-1.5 w-100 flex-nowrap">
-                                @for ($i = 1; $i <= floor($post->rating_vibes); $i++) <i class="fa-solid fa-star" style="font-size: 11px;"></i> @endfor
-                                @if (fmod($post->rating_vibes, 1) != 0) <i class="fa-solid fa-star-half-stroke" style="font-size: 11px;"></i> @endif
-                                @for ($i = 1; $i <= (5 - ceil($post->rating_vibes)); $i++) <i class="fa-regular fa-star opacity-25 text-secondary" style="font-size: 11px;"></i> @endfor
-                            </div>
-                            <span class="fw-black py-1 my-2 rounded-pill w-100 text-center d-block" style="background-color: #ff007f; color: #fff; font-size: 11px; line-height: 1; box-shadow: 0px 1px 2px rgba(255, 0, 127, 0.2); text-shadow: none;">{{ number_format($post->rating_vibes, 1) }}</span>
-                        </div>
-                    </div>
-                @endif
+    @include('users.posts.contents.ratings')
 
-            </div>
-        </div>
-    @endif
+    <time class="post-date" datetime="{{ $post->created_at->toDateString() }}">
+        {{ $post->created_at->format('M d, Y') }}
+    </time>
 
-    {{-- include comments here --}}
     @include('users.posts.contents.comments')
 </div>
