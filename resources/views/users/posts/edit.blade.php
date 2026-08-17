@@ -33,7 +33,7 @@
                 
                 <div class="form-text" id="image-info">
                     The acceptable formats are jpeg, jpg, png, and gif only.<br>
-                    Max file size is 1048kb.
+                    Max file size is 3MB per file.(up to 5)
                 </div>
                 
                 {{-- Error --}}
