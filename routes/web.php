@@ -10,6 +10,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\Admin\LocationsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 //yuki comment
@@ -38,6 +39,12 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/categories/store', [CategoriesController::class, 'store'])->name('categories.store');
         Route::patch('/categories/{id}/update', [CategoriesController::class, 'update'])->name('categories.update');
         Route::delete('categories/{id}/delete', [CategoriesController::class, 'destroy'])->name('categories.destroy');
+
+        //LOCATION
+        Route::get('locations', [LocationsController::class, 'index'])->name('locations');
+        Route::post('locations/store', [LocationsController::class, 'store'])->name('locations.store');
+        Route::patch('locations/{id}/update', [LocationsController::class, 'update'])->name('locations.update');
+        Route::delete('locations/{id}/destroy', [LocationsController::class, 'destroy'])->name('locations.destroy');
         
 
     });

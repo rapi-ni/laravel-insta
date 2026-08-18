@@ -1,15 +1,15 @@
 @extends('layouts.app')
  
-@section('title', 'Admin: Categories')
+@section('title', 'Admin: Locations')
  
 @section('content')
     <!-- Form -->
     <div class="mb-3 w-50">
-        <form action="{{ route('admin.categories.store') }}" method="post">
+        <form action="{{ route('admin.locations.store') }}" method="post">
             @csrf
             <div class="row gx-2">
                 <div class="col">
-                    <input type="text" name="category" id="category" class="form-control" placeholder="Add a category" required autofocus>
+                    <input type="text" name="location_name" id="location" class="form-control" placeholder="Add a new location (e.g., IT Park, UCMA)" required autofocus>
                 </div>
                 <div class="col-auto">
                     <button type="submit" name="btn_add" class="btn btn-primary w-100 fw-bold">
@@ -19,47 +19,47 @@
             </div>
         </form>
     </div>
-    @error('category')
+    @error('location_name')
         <div class="text-danger small mt-1 fw-bold">{{ $message }}</div>
     @enderror
 
     <!-- Table -->
     <table class="table table-hover align-middle bg-white border text-secondary w-75 text-center">
-        <thead class="small table-warning text-secondary">
+        <thead class="small table-info text-secondary">
             <tr>
                 <th>#</th>
-                <th>NAME</th>
+                <th>LOCATION NAME</th>
                 <th>COUNT</th>
                 <th>LAST UPDATE</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($all_categories as $category)
+            @foreach ($all_locations as $location)
                 <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ ucfirst($category->name) }}</td>
-                    <td>{{ $category->categorypost_count }}</td>
-                    <td>{{ $category->updated_at }}</td>
+                    <td>{{ $location->id }}</td>
+                    <td>{{ ucfirst($location->name) }}</td>
+                    <td>{{ $location->posts_count }}</td>
+                    <td>{{ $location->updated_at }}</td>
                     <td>
-                        <button class="btn btn-sm btn-outline-warning me-2" data-bs-toggle="modal" data-bs-target="#edit-category-{{ $category->id }}">
+                        <button class="btn btn-sm btn-outline-warning me-2" data-bs-toggle="modal" data-bs-target="#edit-location-{{ $location->id }}">
                             <i class="fa-solid fa-pen"></i>
                         </button>
-                        <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-category-{{ $category->id }}">
+                        <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-location-{{ $location->id }}">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
-                        @include('admin.categories.modals.edit')
-                        @include('admin.categories.modals.delete')
+                        @include('admin.locations.modals.edit')
+                        @include('admin.locations.modals.delete')
                     </td>
                 </tr>
             @endforeach
                 <tr>
                     <td></td>
                     <td>
-                        Uncategorized
+                        No Location Assigned
                         <div class="text-muted small">Hidden posts are not included.</div>
                     </td>
-                    <td>{{ $uncategorized_count}}</td>
+                    <td>{{ $no_location_count }}</td>
                     <td></td>
                     <td></td>
                 </tr>

@@ -181,6 +181,10 @@
                                     class="list-group-item {{ request()->is('admin/categories') ? 'active' : '' }}">
                                     <i class="fa-solid fa-tags"></i> Categories
                                 </a>
+                                <a href="{{ route('admin.locations') }}"
+                                    class="list-group-item {{ request()->is('admin/locations') ? 'active' : '' }}">
+                                    <i class="fa-solid fa-location-dot"></i> Locations
+                                </a>
                             </div>
                         </div>
                     @endif
