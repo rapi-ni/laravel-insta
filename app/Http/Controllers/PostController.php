@@ -175,7 +175,8 @@ class PostController extends Controller
         #1. Validate all form date
         $request ->validate([
             'category_id'   => 'required|exists:categories,id',
-            'location_id'   => 'required|exists:locations,id',
+            'location_id'   => 'nullable|exists:locations,id',
+            'location_name' => 'required_without:location_id|max:255',
             'description'   => 'required|min:1|max:1000',
             'image'         => 'nullable|mimes:jpeg,jpg,png,gif|max:40960',
             'rating_taste'  => 'required|numeric|between:0.5,5.0',
@@ -187,11 +188,21 @@ class PostController extends Controller
         #2. Update the post
         $post = $this->post->findOrFail($id);
         $post->description   = $request->description;
-        $post->location_id   = $request->location_id;
         $post->rating_taste  = $request->rating_taste;
         $post->rating_volume = $request->rating_volume;
         $post->rating_sulit  = $request->rating_sulit;
         $post->rating_vibes  = $request->rating_vibes;
+
+        $current_location_name = $post->location ? $post->location->name : '';
+        if ($request->filled('location_name') && trim($request->location_name) !== $current_location_name) {
+            $new_location = \App\Models\Location::firstOrCreate([
+                'name' => trim($request->location_name)
+            ]);
+            $post->location_id = $new_location->id;
+        } 
+        elseif ($request->filled('location_id')) {
+            $post->location_id = $request->location_id;
+        }
          
         # if there is a new image...
         if ($request->image) {

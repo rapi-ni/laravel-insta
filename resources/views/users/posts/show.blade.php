@@ -16,7 +16,7 @@
                         @foreach($post->images as $index => $post_image)
                             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                                 <div class="ratio ratio-1x1">
-                                    <img src="{{ $post_image->image }}" alt="Post by {{ $post->user->name }}" class="w-100 h-100 d-block">
+                                    <img src="{{ $post_image->image }}" alt="Post by {{ $post->user->name }}" class="w-100 h-100 d-block object-fit-cover">
                                 </div>
                             </div>
                         @endforeach
@@ -35,7 +35,7 @@
                 </div>
             @else
                 <div class="ratio ratio-1x1">
-                    <img src="{{ $post->image }}" alt="Post by {{ $post->user->name }}" class="w-100 h-100">
+                    <img src="{{ $post->image }}" alt="Post by {{ $post->user->name }}" class="w-100 h-100 object-fit-cover">
                 </div>
             @endif
         </div>
