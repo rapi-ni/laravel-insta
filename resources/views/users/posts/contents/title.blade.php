@@ -4,7 +4,9 @@
             @if ($post->user->avatar)
                 <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="rounded-circle avatar-sm">
             @else
-                <i class="fa-solid fa-circle-user text-secondary icon-sm"></i>
+                <span class="post-author-avatar-fallback" aria-hidden="true">
+                    <i class="fa-solid fa-user"></i>
+                </span>
             @endif
         </a>
         <div class="post-author-copy">
