@@ -26,7 +26,6 @@
                 <a href="{{ route('post.edit', $post->id) }}" class="dropdown-item"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
                 <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete-post-{{ $post->id }}"><i class="fa-regular fa-trash-can"></i> Delete</button>
             </div>
-            @include('users.posts.contents.modals.delete')
         @else
             <div class="dropdown-menu dropdown-menu-end">
                 <form action="{{ route('follow.destroy', $post->user->id) }}" method="post">

@@ -12,6 +12,9 @@
                     {{-- body --}}
                     @include('users.posts.contents.body')
                 </div>
+                @if (Auth::user()->id === $post->user->id)
+                    @include('users.posts.contents.modals.delete')
+                @endif
             @empty
                 <div class="text-center">
                     <h2>Share Photos</h2>
