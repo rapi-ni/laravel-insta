@@ -87,7 +87,7 @@ class PostController extends Controller
             $this->post->location_id = $request->location_id;
         } else {
             $new_location = \App\Models\Location::firstOrCreate([
-                'name' => $request->location_name
+                'name' => trim($request->location_name)
             ]);
             $this->post->location_id = $new_location->id;
         }
@@ -107,7 +107,11 @@ class PostController extends Controller
 
         #4. Save images (if user put more than 2 images)
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $file) {
+            foreach ($request->file('images') as $index => $file ) {
+
+                if ($index === 0) {
+                    continue;
+                }
 
                 $image = $manager->read($file);
 
