@@ -3,9 +3,9 @@
 @section('title', 'Show Post')
 
 @section('content')
-    <a href="javascript:history.back()" class="post-back-link" title="Back">
+    <a href="{{ route('index') }}#post-{{ $post->id }}" class="post-back-link" title="Back to Home">
         <i class="fa-solid fa-chevron-left"></i>
-        Back
+        Back to Home
     </a>
 
     <article class="post-detail">
