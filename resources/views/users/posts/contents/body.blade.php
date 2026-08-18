@@ -36,19 +36,26 @@
 
 <div class="card-body post-content">
     <div class="post-actions">
-        <form class="like-form" action="{{ route('like.store', $post->id) }}" data-post-id="{{ $post->id }}"
-            data-like-store-url="{{ route('like.store', $post->id) }}"
-            data-like-destroy-url="{{ route('like.destroy', $post->id) }}" method="post">
-            @csrf
-            <button type="submit" class="post-like-button" aria-label="Like this post">
-                @if ($post->isLiked())
-                    <i class="fa-solid fa-heart text-danger" data-liked="true"></i>
-                @else
-                    <i class="fa-regular fa-heart" data-liked="false"></i>
-                @endif
-                <span id="like-count-{{ $post->id }}">{{ $post->likes->count() }}</span>
-            </button>
-        </form>
+        <div class="post-primary-actions">
+            <form class="like-form" action="{{ route('like.store', $post->id) }}" data-post-id="{{ $post->id }}"
+                data-like-store-url="{{ route('like.store', $post->id) }}"
+                data-like-destroy-url="{{ route('like.destroy', $post->id) }}" method="post">
+                @csrf
+                <button type="submit" class="post-like-button" aria-label="Like this post">
+                    @if ($post->isLiked())
+                        <i class="fa-solid fa-heart text-danger" data-liked="true"></i>
+                    @else
+                        <i class="fa-regular fa-heart" data-liked="false"></i>
+                    @endif
+                    <span id="like-count-{{ $post->id }}">{{ $post->likes->count() }}</span>
+                </button>
+            </form>
+
+            <a href="{{ route('post.show', $post->id) }}" class="post-comment-button" aria-label="View comments">
+                <i class="fa-regular fa-comment"></i>
+                <span>{{ $post->comments->count() }}</span>
+            </a>
+        </div>
 
         <div class="post-categories" aria-label="Categories">
             @forelse ($post->categorypost as $category)
@@ -73,5 +80,4 @@
         {{ $post->created_at->format('M d, Y') }}
     </time>
 
-    @include('users.posts.contents.comments')
 </div>
