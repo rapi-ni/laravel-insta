@@ -6,7 +6,7 @@
     <div class="row gx-5 gyaru-home">
         <div class="col-8">
             @forelse ($home_posts as $post)
-                <div class="card mb-4 post-card">
+                <div id="post-{{ $post->id }}" class="card mb-4 post-card">
                     {{-- title --}}
                     @include('users.posts.contents.title')
                     {{-- body --}}

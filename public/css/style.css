@@ -427,6 +427,7 @@ body {
 /* Unified post card */
 .post-card {
     border-radius: 1.5rem;
+    scroll-margin-top: 6rem;
     transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
