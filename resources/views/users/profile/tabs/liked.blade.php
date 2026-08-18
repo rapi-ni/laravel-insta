@@ -34,7 +34,7 @@
     @else
         <!-- 💡【お揃い】いいねした投稿がない時のエリアも、可愛いピンクの点線デザインにカスタム！ -->
         <div class="text-center py-5 bg-light rounded-4 border border-2" style="border-style: dashed !important; border-color: #ffbfda !important;">
-            <i class="fa-solid fa-heart fa-3x mb-3 opacity-30" style="color: #ff007f;"></i>
+            <i class="fa-solid fa-heart profile-empty-like-icon mb-3 opacity-30" style="color: #ff007f;"></i>
             <p class="fw-bold mb-0" style="color: #ff007f; font-size: 14px;">No Liked Posts Yet</p>
         </div>
     @endif

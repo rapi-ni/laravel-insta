@@ -138,6 +138,11 @@
     opacity: 1 !important;                
 }
 
+/* Empty state icon: scoped so other heart icons are unaffected. */
+.profile-empty-like-icon.fa-heart {
+    font-size: 3rem;
+}
+
 
 /* followers / following modal */
 .follow-modal .modal-content {
@@ -689,10 +694,6 @@ body {
     font-weight: 900;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-}
-
-.post-ratings-title i {
-    color: #f5ad18;
 }
 
 .post-ratings-grid {
