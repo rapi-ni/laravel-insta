@@ -3,13 +3,13 @@
         ['key' => 'rating_taste', 'label' => 'Taste', 'icon' => 'fa-bowl-food'],
         ['key' => 'rating_volume', 'label' => 'Volume', 'icon' => 'fa-layer-group'],
         ['key' => 'rating_sulit', 'label' => 'Value', 'icon' => 'fa-tag'],
-        ['key' => 'rating_vibes', 'label' => 'Vibes', 'icon' => 'fa-sparkles'],
+        ['key' => 'rating_vibes', 'label' => 'Vibes', 'icon' => 'fa-music'],
     ];
 @endphp
 
 @if(collect($ratings)->contains(fn ($rating) => (bool) $post->{$rating['key']}))
     <section class="post-ratings" aria-label="Food ratings">
-        <div class="post-ratings-title"><span>My rating</span><i class="fa-solid fa-star"></i></div>
+        <div class="post-ratings-title"><span>My rating</span></div>
         <div class="post-ratings-grid">
             @foreach($ratings as $rating)
                 @php($value = $post->{$rating['key']})
