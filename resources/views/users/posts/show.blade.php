@@ -86,4 +86,8 @@
             </div>
         </div>
     </article>
+
+    @if (Auth::user()->id === $post->user->id)
+        @include('users.posts.contents.modals.delete')
+    @endif
 @endsection

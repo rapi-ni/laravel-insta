@@ -1,8 +1,9 @@
-<div class="modal fade" id="delete-post-{{ $post->id }}">
-    <div class="modal-dialog">
+<div class="modal fade" id="delete-post-{{ $post->id }}" tabindex="-1"
+    aria-labelledby="delete-post-title-{{ $post->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-danger">
             <div class="modal-header border-danger">
-                <h3 class="h5 modal-title text-danger">
+                <h3 class="h5 modal-title text-danger" id="delete-post-title-{{ $post->id }}">
                     <i class="fa-solid fa-circle-exclamation"></i>Delete Post
                 </h3>
             </div>
