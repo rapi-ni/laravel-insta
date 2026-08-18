@@ -42,7 +42,7 @@ class PostController extends Controller
         #1. Validate all form date
         $request ->validate([
             'category_id'   => 'required|exists:categories,id',
-            'location_name' => 'required|min:1|max:255',
+            'location_name' => 'nullable|min:1|max:255',
             'description'   => 'required|min:1|max:1000',
             'images'   => 'required|array|max:5',
             'images.*' => 'image|mimes:jpeg,jpg,png,gif|max:40960',
@@ -85,11 +85,13 @@ class PostController extends Controller
 
         if ($request->filled('location_id')) {
             $this->post->location_id = $request->location_id;
-        } else {
+        } elseif ($request->filled('location_name')) {
             $new_location = \App\Models\Location::firstOrCreate([
                 'name' => trim($request->location_name)
             ]);
             $this->post->location_id = $new_location->id;
+        } else {
+            $this->post->location_id = null;
         }
 
         $this->post->rating_taste  = $request->rating_taste;
@@ -180,7 +182,7 @@ class PostController extends Controller
         $request ->validate([
             'category_id'   => 'required|exists:categories,id',
             'location_id'   => 'nullable|exists:locations,id',
-            'location_name' => 'required_without:location_id|max:255',
+            'location_name' => 'nullable:location_id|max:255',
             'description'   => 'required|min:1|max:1000',
             'image'         => 'nullable|mimes:jpeg,jpg,png,gif|max:40960',
             'rating_taste'  => 'required|numeric|between:0.5,5.0',
@@ -197,15 +199,17 @@ class PostController extends Controller
         $post->rating_sulit  = $request->rating_sulit;
         $post->rating_vibes  = $request->rating_vibes;
 
-        $current_location_name = $post->location ? $post->location->name : '';
-        if ($request->filled('location_name') && trim($request->location_name) !== $current_location_name) {
-            $new_location = \App\Models\Location::firstOrCreate([
-                'name' => trim($request->location_name)
-            ]);
-            $post->location_id = $new_location->id;
-        } 
-        elseif ($request->filled('location_id')) {
-            $post->location_id = $request->location_id;
+        if ($request->filled('location_name')) {
+            $current_location_name = $post->location ? $post->location->name : '';
+
+            if (trim($request->location_name) !== $current_location_name) {
+                $new_location = Location::firstOrCreate([
+                    'name' => trim($request->location_name)
+                ]);
+                $post->location_id = $new_location->id;
+            }
+        } else {
+            $post->location_id = null;
         }
          
         # if there is a new image...

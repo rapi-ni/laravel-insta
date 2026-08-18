@@ -53,6 +53,9 @@ class LocationsController extends Controller
 
     public function destroy($id){
         $location = $this->location->findOrFail($id);
+        Post::where('location_id', $location->id)->update([
+            'location_id' => null
+        ]);
         $location->delete();
 
         return redirect()->back();
