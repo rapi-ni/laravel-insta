@@ -1,38 +1,40 @@
 {{-- Post media --}}
-<div class="post-media">
-    @if($post->images->isNotEmpty())
-        <div id="carouselTimeline-{{ $post->id }}" class="carousel slide w-100" data-bs-ride="false">
-            <div class="carousel-inner">
-                @foreach($post->images as $index => $post_image)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                        <a href="{{ route('post.show', $post->id) }}">
-                            <div class="ratio ratio-1x1">
-                                <img src="{{ $post_image->image }}" alt="Post by {{ $post->user->name }}" class="w-100 h-100 d-block">
-                            </div>
-                        </a>
+<div class="post-media" style="background: none !important;">
+    <div id="carouselTimeline-{{ $post->id }}" class="carousel slide w-100" data-bs-ride="false">
+        <div class="carousel-inner">
+            
+            <div class="carousel-item active">
+                <a href="{{ route('post.show', $post->id) }}">
+                    <div class="ratio ratio-1x1">
+                        <img src="{{ $post->image }}" alt="Post by {{ $post->user->name }}" class="w-100 h-100 d-block object-fit-cover">
                     </div>
-                @endforeach
+                </a>
             </div>
 
-            @if($post->images->count() > 1)
-                <button class="carousel-control-prev post-carousel-control" type="button" data-bs-target="#carouselTimeline-{{ $post->id }}" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next post-carousel-control" type="button" data-bs-target="#carouselTimeline-{{ $post->id }}" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            @endif
+            @foreach($post->images as $post_image)
+                <div class="carousel-item">
+                    <a href="{{ route('post.show', $post->id) }}">
+                        <div class="ratio ratio-1x1">
+                            <img src="{{ $post_image->image }}" alt="Post by {{ $post->user->name }}" class="w-100 h-100 d-block object-fit-cover">
+                        </div>
+                    </a>
+                </div>
+            @endforeach
         </div>
-    @else
-        <a href="{{ route('post.show', $post->id) }}">
-            <div class="ratio ratio-1x1">
-                <img src="{{ $post->image }}" alt="Post by {{ $post->user->name }}" class="w-100 h-100">
-            </div>
-        </a>
-    @endif
+
+        @if($post->images->isNotEmpty())
+            <button class="carousel-control-prev post-carousel-control" type="button" data-bs-target="#carouselTimeline-{{ $post->id }}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next post-carousel-control" type="button" data-bs-target="#carouselTimeline-{{ $post->id }}" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        @endif
+    </div>
 </div>
+
 
 <div class="card-body post-content">
     <div class="post-actions">
